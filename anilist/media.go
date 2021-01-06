@@ -1,4 +1,4 @@
-package main
+package anilist
 
 import (
 	"bytes"
@@ -624,7 +624,7 @@ func (p *Page) PaginationByTitle(title string, page int, perPage int) {
 		panic(err)
 	}
 
-	cleanData := cleanPageJSON(PostRequest(jsonValue))
+	cleanData := CleanPageJSON(PostRequest(jsonValue))
 
 	if err := json.Unmarshal(cleanData, &p); err != nil {
 		panic(err)
@@ -679,7 +679,8 @@ func cleanMediaJSON(str []byte) []byte {
 	return lastItr
 }
 
-func cleanPageJSON(str []byte) []byte {
+// CleanPageJSON cleans the hmtl body by removing data and }}
+func CleanPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Page":|}}$`)
 	substitution := ""
 	firstItr := re.ReplaceAll(str, []byte(substitution))
