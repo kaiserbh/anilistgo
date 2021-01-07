@@ -9,21 +9,6 @@ import (
 	"regexp"
 )
 
-// Page Object to store pages
-type Page struct {
-	PageInfo PageInfo `json:"pageInfo"`
-	Media    []Media  `json:"media"`
-}
-
-// PageInfo represents the information regarding the Page of Anilist query
-type PageInfo struct {
-	Total       int  `json:"total"`
-	PerPage     int  `json:"perPage"`
-	CurrentPage int  `json:"currentPage"`
-	LastPage    int  `json:"lastPage"`
-	HasNextPage bool `json:"hasNextPage"`
-}
-
 // Media object to store the json from Anilist
 type Media struct {
 	// Media ID from anilist
@@ -181,11 +166,6 @@ type Edges struct {
 
 // Characters Characters ID must use Edges to call it and it's an array.
 type Characters struct {
-	Edges []Edges `json:"edges"`
-}
-
-// Staff object anime staff but it only return ID
-type Staff struct {
 	Edges []Edges `json:"edges"`
 }
 
@@ -598,39 +578,6 @@ func (m *Media) FilterMangaByID(id int) {
 
 }
 
-// PaginationByTitle  search Anilist Media by title returns arrayList of Media objects, and pageInfor takes title string, page (which page to look for), PerPage The amount of entries per page, max 50
-func (p *Page) PaginationByTitle(title string, page int, perPage int) {
-	jsonData := map[string]string{
-		"query": fmt.Sprintf(`
-		{ Page(page: %d, perPage: %d) {
-			 pageInfo {
-      			total,
-      			perPage,
-      			currentPage,
-      			lastPage,
-     		 hasNextPage,
-   			 },
-			
-			media(search: "%v") {
-				%s
-			}
-		}
-	}
-	`, page, perPage, title, mediaQuery),
-	}
-
-	jsonValue, err := json.Marshal(jsonData)
-	if err != nil {
-		panic(err)
-	}
-
-	cleanData := CleanPageJSON(PostRequest(jsonValue))
-
-	if err := json.Unmarshal(cleanData, &p); err != nil {
-		panic(err)
-	}
-}
-
 // PostRequest sends POST request that takes []byte as parameter then returns back httml Body as []byte
 func PostRequest(jsonValue []byte) []byte {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
@@ -691,6 +638,15 @@ func CleanPageJSON(str []byte) []byte {
 // CleanMediaTrendPageJSON cleans the hmtl body by removing data and }}
 func CleanMediaTrendPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"MediaTrend":|}}$`)
+	substitution := ""
+	firstItr := re.ReplaceAll(str, []byte(substitution))
+
+	return firstItr
+}
+
+// CleanStaffJSON cleans the hmtl body by removing data and }}
+func CleanStaffJSON(str []byte) []byte {
+	re := regexp.MustCompile(`(?m){"data":{"Staff":|}}$`)
 	substitution := ""
 	firstItr := re.ReplaceAll(str, []byte(substitution))
 
