@@ -9,11 +9,11 @@ import (
 type MediaTrend struct {
 	MediaID      int64 `json:"mediaID"`
 	Date         int64 `json:"date"`
-	Trending     int   `json:"Trending"`
+	Trending     int   `json:"trending"`
 	AverageScore int   `json:"averageScore"`
 	Popularity   int   `json:"popularity"`
 	InProgress   int   `json:"inProgress"`
-	Releasing    int   `json:"releasing"`
+	Releasing    bool  `json:"releasing"`
 	Episode      int   `json:"episode"`
 	Media        Media `json:"media"`
 }
@@ -87,11 +87,12 @@ func NewMediaTrend() *MediaTrend {
 	return &m
 }
 
-func (m *MediaTrend) searchByID(id int) {
+// SearchByMediaID searches mediaTrend by anilist ID
+func (m *MediaTrend) SearchByMediaID(id int) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			MediaTrend(id: %v) {
+			MediaTrend(mediaId: %v) {
 				%s
 			  }
 		}
@@ -103,7 +104,113 @@ func (m *MediaTrend) searchByID(id int) {
 		panic(err)
 	}
 
-	cleanData := CleanPageJSON(PostRequest(jsonValue))
+	cleanData := CleanMediaTrendPageJSON(PostRequest(jsonValue))
+
+	// fmt.Println(string(cleanData))
+
+	if err := json.Unmarshal(cleanData, &m); err != nil {
+		panic(err)
+	}
+}
+
+// FilterByTrendingAmount filters by trending amount
+func (m *MediaTrend) FilterByTrendingAmount(trending int) {
+	jsonData := map[string]string{
+		"query": fmt.Sprintf(`
+		{ 
+			MediaTrend(trending: %v) {
+				%s
+			  }
+		}
+	`, trending, mediaTrendQueries),
+	}
+
+	jsonValue, err := json.Marshal(jsonData)
+	if err != nil {
+		panic(err)
+	}
+
+	cleanData := CleanMediaTrendPageJSON(PostRequest(jsonValue))
+
+	// fmt.Println(string(cleanData))
+
+	if err := json.Unmarshal(cleanData, &m); err != nil {
+		panic(err)
+	}
+}
+
+// FilterByTrendingAverageScore filters by average score
+func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) {
+	jsonData := map[string]string{
+		"query": fmt.Sprintf(`
+		{ 
+			MediaTrend(averageScore: %v) {
+				%s
+			  }
+		}
+	`, averageScore, mediaTrendQueries),
+	}
+
+	jsonValue, err := json.Marshal(jsonData)
+	if err != nil {
+		panic(err)
+	}
+
+	cleanData := CleanMediaTrendPageJSON(PostRequest(jsonValue))
+
+	// fmt.Println(string(cleanData))
+
+	if err := json.Unmarshal(cleanData, &m); err != nil {
+		panic(err)
+	}
+}
+
+// FilterByPopularity filters by popularity
+func (m *MediaTrend) FilterByPopularity(popularity int) {
+	jsonData := map[string]string{
+		"query": fmt.Sprintf(`
+		{ 
+			MediaTrend(popularity: %v) {
+				%s
+			  }
+		}
+	`, popularity, mediaTrendQueries),
+	}
+
+	jsonValue, err := json.Marshal(jsonData)
+	if err != nil {
+		panic(err)
+	}
+
+	cleanData := CleanMediaTrendPageJSON(PostRequest(jsonValue))
+
+	// fmt.Println(string(cleanData))
+
+	if err := json.Unmarshal(cleanData, &m); err != nil {
+		panic(err)
+	}
+}
+
+// FilterByEpisode filters by episode number
+func (m *MediaTrend) FilterByEpisode(episode int) {
+	jsonData := map[string]string{
+		"query": fmt.Sprintf(`
+		{ 
+			MediaTrend(episode: %v) {
+				%s
+			  }
+		}
+	`, episode, mediaTrendQueries),
+	}
+
+	jsonValue, err := json.Marshal(jsonData)
+	if err != nil {
+		panic(err)
+	}
+
+	cleanData := CleanMediaTrendPageJSON(PostRequest(jsonValue))
+
+	// fmt.Println(string(cleanData))
 
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		panic(err)
