@@ -1,4 +1,4 @@
-package main
+package anilist
 
 import (
 	"bytes"
@@ -89,7 +89,7 @@ type Media struct {
 	// The amount of related activity in the past hour
 	Trending int `json:"trending"`
 	// The amount of user's who have favourited the media
-	Favorites int `json:"favorites"`
+	Favourites int `json:"favourites"`
 	// List of tags that describes elements and themes of the media
 	Tags []Tags `json:"tags"`
 	// Other media in the same or connecting franchise
@@ -398,8 +398,8 @@ func NewMedia() *Media {
 	return &m
 }
 
-// SearchByID Search Anilist Media by it's ID
-func (m *Media) SearchByID(id int) {
+// FilterByID Search Anilist Media by it's ID
+func (m *Media) FilterByID(id int) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -423,8 +423,8 @@ func (m *Media) SearchByID(id int) {
 
 }
 
-// SearchByMalID search Anilist Media by it's MAL(MyAnimeList) ID
-func (m *Media) SearchByMalID(malID int) {
+// FilterByMalID search Anilist Media by it's MAL(MyAnimeList) ID
+func (m *Media) FilterByMalID(malID int) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -448,8 +448,8 @@ func (m *Media) SearchByMalID(malID int) {
 
 }
 
-// SearchByStartDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
-func (m *Media) SearchByStartDate(date int32) {
+// FilterByStartDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
+func (m *Media) FilterByStartDate(date int32) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -473,8 +473,8 @@ func (m *Media) SearchByStartDate(date int32) {
 
 }
 
-// SearchByEndDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
-func (m *Media) SearchByEndDate(date int32) {
+// FilterByEndDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
+func (m *Media) FilterByEndDate(date int32) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -498,8 +498,8 @@ func (m *Media) SearchByEndDate(date int32) {
 
 }
 
-// SearchBySeason search Anilist Media by Season (WINTER, SPRING, SUMMER, FALL)
-func (m *Media) SearchBySeason(season string) {
+// FilterBySeason search Anilist Media by Season (WINTER, SPRING, SUMMER, FALL)
+func (m *Media) FilterBySeason(season string) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -523,8 +523,8 @@ func (m *Media) SearchBySeason(season string) {
 
 }
 
-// SearchByTitle search Anilist Media by title of the anime or manga
-func (m *Media) SearchByTitle(title string) {
+// FilterByTitle search Anilist Media by title of the anime or manga
+func (m *Media) FilterByTitle(title string) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -548,8 +548,8 @@ func (m *Media) SearchByTitle(title string) {
 
 }
 
-// SearchAnimeByID search Anilist Anime type: ANIME is hard-coded in the query
-func (m *Media) SearchAnimeByID(id int) {
+// FilterAnimeByID search Anilist Anime only type: ANIME is hard-coded in the query
+func (m *Media) FilterAnimeByID(id int) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -573,8 +573,8 @@ func (m *Media) SearchAnimeByID(id int) {
 
 }
 
-// SearchMangaByID search Anilist Manga type: MANGA is hard-coded in the query
-func (m *Media) SearchMangaByID(id int) {
+// FilterMangaByID search Anilist Manga type: MANGA is hard-coded in the query
+func (m *Media) FilterMangaByID(id int) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -624,7 +624,7 @@ func (p *Page) PaginationByTitle(title string, page int, perPage int) {
 		panic(err)
 	}
 
-	cleanData := cleanPageJSON(PostRequest(jsonValue))
+	cleanData := CleanPageJSON(PostRequest(jsonValue))
 
 	if err := json.Unmarshal(cleanData, &p); err != nil {
 		panic(err)
@@ -679,8 +679,18 @@ func cleanMediaJSON(str []byte) []byte {
 	return lastItr
 }
 
-func cleanPageJSON(str []byte) []byte {
+// CleanPageJSON cleans the hmtl body by removing data and }}
+func CleanPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Page":|}}$`)
+	substitution := ""
+	firstItr := re.ReplaceAll(str, []byte(substitution))
+
+	return firstItr
+}
+
+// CleanMediaTrendPageJSON cleans the hmtl body by removing data and }}
+func CleanMediaTrendPageJSON(str []byte) []byte {
+	re := regexp.MustCompile(`(?m){"data":{"MediaTrend":|}}$`)
 	substitution := ""
 	firstItr := re.ReplaceAll(str, []byte(substitution))
 
