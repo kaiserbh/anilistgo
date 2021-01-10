@@ -58,7 +58,7 @@ func cleanMediaJSON(str []byte) []byte {
 	return lastItr
 }
 
-// CleanPageJSON cleans the hmtl body by removing data and }}
+// CleanPageJSON cleans the hmtl body
 func CleanPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Page":|}}$`)
 	substitution := ""
@@ -67,7 +67,7 @@ func CleanPageJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanMediaTrendPageJSON cleans the hmtl body by removing data and }}
+// CleanMediaTrendPageJSON cleans the hmtl
 func CleanMediaTrendPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"MediaTrend":|}}$`)
 	substitution := ""
@@ -76,7 +76,7 @@ func CleanMediaTrendPageJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanStaffJSON cleans the hmtl body by removing data and }}
+// CleanStaffJSON cleans the hmtl body
 func CleanStaffJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Staff":|}}$`)
 	substitution := ""
@@ -85,9 +85,18 @@ func CleanStaffJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanCharacterJSON cleans the hmtl body by removing data and }}
+// CleanCharacterJSON cleans the hmtl body
 func CleanCharacterJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Character":|}}$`)
+	substitution := ""
+	firstItr := re.ReplaceAll(str, []byte(substitution))
+
+	return firstItr
+}
+
+// CleanUserJSON cleans the hmtl body
+func CleanUserJSON(str []byte) []byte {
+	re := regexp.MustCompile(`(?m){"data":{"User":|}}$`)
 	substitution := ""
 	firstItr := re.ReplaceAll(str, []byte(substitution))
 
