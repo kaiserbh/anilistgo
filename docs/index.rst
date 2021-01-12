@@ -6,60 +6,96 @@ import "AniListGoWrapper/anilist"
 
 ## Index
 
-- [func CleanMediaTrendPageJSON(str []byte) []byte](<#func-cleanmediatrendpagejson>)
-- [func CleanPageJSON(str []byte) []byte](<#func-cleanpagejson>)
-- [func CleanStaffJSON(str []byte) []byte](<#func-cleanstaffjson>)
-- [func PostRequest(jsonValue []byte) []byte](<#func-postrequest>)
-- [type AiringSchedule](<#type-airingschedule>)
-- [type CharacterMedia](<#type-charactermedia>)
-- [type Characters](<#type-characters>)
-- [type CoverImage](<#type-coverimage>)
-- [type Edges](<#type-edges>)
-- [type EndDate](<#type-enddate>)
-- [type ExternalLinks](<#type-externallinks>)
-- [type Image](<#type-image>)
-- [type Media](<#type-media>)
-  - [func NewMedia() *Media](<#func-newmedia>)
-  - [func (m *Media) FilterAnimeByID(id int)](<#func-media-filteranimebyid>)
-  - [func (m *Media) FilterByEndDate(date int32)](<#func-media-filterbyenddate>)
-  - [func (m *Media) FilterByID(id int)](<#func-media-filterbyid>)
-  - [func (m *Media) FilterByMalID(malID int)](<#func-media-filterbymalid>)
-  - [func (m *Media) FilterBySeason(season string)](<#func-media-filterbyseason>)
-  - [func (m *Media) FilterByStartDate(date int32)](<#func-media-filterbystartdate>)
-  - [func (m *Media) FilterByTitle(title string)](<#func-media-filterbytitle>)
-  - [func (m *Media) FilterMangaByID(id int)](<#func-media-filtermangabyid>)
-- [type MediaTrend](<#type-mediatrend>)
-  - [func NewMediaTrend() *MediaTrend](<#func-newmediatrend>)
-  - [func (m *MediaTrend) FilterByEpisode(episode int)](<#func-mediatrend-filterbyepisode>)
-  - [func (m *MediaTrend) FilterByPopularity(popularity int)](<#func-mediatrend-filterbypopularity>)
-  - [func (m *MediaTrend) FilterByTrendingAmount(trending int)](<#func-mediatrend-filterbytrendingamount>)
-  - [func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int)](<#func-mediatrend-filterbytrendingaveragescore>)
-  - [func (m *MediaTrend) SearchByMediaID(id int)](<#func-mediatrend-searchbymediaid>)
-- [type Name](<#type-name>)
-- [type NextAiringEpisode](<#type-nextairingepisode>)
-- [type Node](<#type-node>)
-- [type Page](<#type-page>)
-  - [func (p *Page) PaginationByTitle(title string, page int, perPage int)](<#func-page-paginationbytitle>)
-- [type PageInfo](<#type-pageinfo>)
-- [type Rankings](<#type-rankings>)
-- [type Recommendations](<#type-recommendations>)
-- [type RecroRevEdges](<#type-recrorevedges>)
-- [type Relations](<#type-relations>)
-- [type Reviews](<#type-reviews>)
-- [type ScoreDistribution](<#type-scoredistribution>)
-- [type Staff](<#type-staff>)
-  - [func (s *Staff) FilterStaffByID(id int)](<#func-staff-filterstaffbyid>)
-  - [func (s *Staff) FilterStaffByName(name string)](<#func-staff-filterstaffbyname>)
-- [type StaffMedia](<#type-staffmedia>)
-- [type StartDate](<#type-startdate>)
-- [type Stats](<#type-stats>)
-- [type StatusDistribution](<#type-statusdistribution>)
-- [type StreamingEpisodes](<#type-streamingepisodes>)
-- [type Studio](<#type-studio>)
-- [type Tags](<#type-tags>)
-- [type Title](<#type-title>)
-- [type Trailer](<#type-trailer>)
+- [func CleanCharacterJSON(str []byte) []byte](#func-cleancharacterjson)
+- [func CleanMediaTrendPageJSON(str []byte) []byte](#func-cleanmediatrendpagejson)
+- [func CleanPageJSON(str []byte) []byte](#func-cleanpagejson)
+- [func CleanStaffJSON(str []byte) []byte](#func-cleanstaffjson)
+- [func CleanUserJSON(str []byte) []byte](#func-cleanuserjson)
+- [func PostRequest(jsonValue []byte) []byte](#func-postrequest)
+- [type AiringSchedule](#type-airingschedule)
+- [type Anime](#type-anime)
+- [type AnimeList](#type-animelist)
+- [type Avatar](#type-avatar)
+- [type Character](#type-character)
+  - [func (c \*Character) FilterCharacterByName(search string)](#func-character-filtercharacterbyname)
+  - [func (c \*Character) FilterCharacterID(ID int)](#func-character-filtercharacterid)
+- [type CharacterMedia](#type-charactermedia)
+- [type Characters](#type-characters)
+- [type Countries](#type-countries)
+- [type CoverImage](#type-coverimage)
+- [type Edges](#type-edges)
+- [type EndDate](#type-enddate)
+- [type ExternalLinks](#type-externallinks)
+- [type Favourites](#type-favourites)
+- [type Formats](#type-formats)
+- [type Genres](#type-genres)
+- [type Image](#type-image)
+- [type Lengths](#type-lengths)
+- [type Manga](#type-manga)
+- [type MangaList](#type-mangalist)
+- [type Media](#type-media)
+  - [func NewMedia() \*Media](#func-newmedia)
+  - [func (m \*Media) FilterAnimeByID(id int)](#func-media-filteranimebyid)
+  - [func (m \*Media) FilterByEndDate(date int32)](#func-media-filterbyenddate)
+  - [func (m \*Media) FilterByID(id int)](#func-media-filterbyid)
+  - [func (m \*Media) FilterByMalID(malID int)](#func-media-filterbymalid)
+  - [func (m \*Media) FilterBySeason(season string)](#func-media-filterbyseason)
+  - [func (m \*Media) FilterByStartDate(date int32)](#func-media-filterbystartdate)
+  - [func (m \*Media) FilterByTitle(title string)](#func-media-filterbytitle)
+  - [func (m \*Media) FilterMangaByID(id int)](#func-media-filtermangabyid)
+- [type MediaListOptions](#type-medialistoptions)
+- [type MediaTrend](#type-mediatrend)
+  - [func NewMediaTrend() \*MediaTrend](#func-newmediatrend)
+  - [func (m \*MediaTrend) FilterByEpisode(episode int)](#func-mediatrend-filterbyepisode)
+  - [func (m \*MediaTrend) FilterByPopularity(popularity int)](#func-mediatrend-filterbypopularity)
+  - [func (m \*MediaTrend) FilterByTrendingAmount(trending int)](#func-mediatrend-filterbytrendingamount)
+  - [func (m \*MediaTrend) FilterByTrendingAverageScore(averageScore int)](#func-mediatrend-filterbytrendingaveragescore)
+  - [func (m \*MediaTrend) SearchByMediaID(id int)](#func-mediatrend-searchbymediaid)
+- [type Name](#type-name)
+- [type NextAiringEpisode](#type-nextairingepisode)
+- [type Node](#type-node)
+- [type Options](#type-options)
+- [type Page](#type-page)
+  - [func (p \*Page) PaginationByTitle(title string, page int, perPage int)](#func-page-paginationbytitle)
+- [type PageInfo](#type-pageinfo)
+- [type Rankings](#type-rankings)
+- [type Recommendations](#type-recommendations)
+- [type RecroRevEdges](#type-recrorevedges)
+- [type Relations](#type-relations)
+- [type ReleaseYears](#type-releaseyears)
+- [type Reviews](#type-reviews)
+- [type ScoreDistribution](#type-scoredistribution)
+- [type Scores](#type-scores)
+- [type Staff](#type-staff)
+  - [func (s \*Staff) FilterStaffByID(id int)](#func-staff-filterstaffbyid)
+  - [func (s \*Staff) FilterStaffByName(name string)](#func-staff-filterstaffbyname)
+- [type StaffMedia](#type-staffmedia)
+- [type StaffU](#type-staffu)
+- [type StartDate](#type-startdate)
+- [type StartYears](#type-startyears)
+- [type Statistics](#type-statistics)
+- [type Stats](#type-stats)
+- [type StatusDistribution](#type-statusdistribution)
+- [type Statuses](#type-statuses)
+- [type StreamingEpisodes](#type-streamingepisodes)
+- [type Studio](#type-studio)
+- [type Tag](#type-tag)
+- [type Tags](#type-tags)
+- [type TagsUser](#type-tagsuser)
+- [type Theme](#type-theme)
+- [type Title](#type-title)
+- [type Trailer](#type-trailer)
+- [type User](#type-user)
+  - [func (u \*User) FilterUserByID(ID int)](#func-user-filteruserbyid)
+  - [func (u \*User) FilterUserByName(name string)](#func-user-filteruserbyname)
 
+## func CleanCharacterJSON
+
+```go
+func CleanCharacterJSON(str []byte) []byte
+```
+
+CleanCharacterJSON cleans the hmtl body
 
 ## func CleanMediaTrendPageJSON
 
@@ -67,7 +103,7 @@ import "AniListGoWrapper/anilist"
 func CleanMediaTrendPageJSON(str []byte) []byte
 ```
 
-CleanMediaTrendPageJSON cleans the hmtl body by removing data and \}\}
+CleanMediaTrendPageJSON cleans the hmtl
 
 ## func CleanPageJSON
 
@@ -75,7 +111,7 @@ CleanMediaTrendPageJSON cleans the hmtl body by removing data and \}\}
 func CleanPageJSON(str []byte) []byte
 ```
 
-CleanPageJSON cleans the hmtl body by removing data and \}\}
+CleanPageJSON cleans the hmtl body
 
 ## func CleanStaffJSON
 
@@ -83,7 +119,15 @@ CleanPageJSON cleans the hmtl body by removing data and \}\}
 func CleanStaffJSON(str []byte) []byte
 ```
 
-CleanStaffJSON cleans the hmtl body by removing data and \}\}
+CleanStaffJSON cleans the hmtl body
+
+## func CleanUserJSON
+
+```go
+func CleanUserJSON(str []byte) []byte
+```
+
+CleanUserJSON cleans the hmtl body
 
 ## func PostRequest
 
@@ -103,6 +147,89 @@ type AiringSchedule struct {
 }
 ```
 
+## type Anime
+
+Anime id of use favourites
+
+```go
+type Anime struct {
+    Edges             []Edges        `json:"edges"`
+    Count             int            `json:"count"`
+    MeanScore         float64        `json:"meanScore"`
+    StandardDeviation float64        `json:"standardDeviation"`
+    MinutesWatched    int            `json:"minutesWatched"`
+    EpisodesWatched   int            `json:"episodesWatched"`
+    Formats           []Formats      `json:"formats"`
+    Statuses          []Statuses     `json:"statuses"`
+    Scores            []Scores       `json:"scores"`
+    Lengths           []Lengths      `json:"lengths"`
+    ReleaseYears      []ReleaseYears `json:"releaseYears"`
+    StartYears        []StartYears   `json:"startYears"`
+    Genres            []Genres       `json:"genres"`
+    Tags              []TagsUser     `json:"tags"`
+    Countries         []Countries    `json:"countries"`
+}
+```
+
+## type AnimeList
+
+AnimeList part of MediaList
+
+```go
+type AnimeList struct {
+    SectionOrder                  []string `json:"sectionOrder"`
+    SplitCompletedSectionByFormat bool     `json:"splitCompletedSectionByFormat"`
+    Theme                         Theme    `json:"theme"`
+    CustomLists                   []string `json:"customLists"`
+    AdvancedScoring               []string `json:"advancedScoring"`
+    AdvancedScoringEnabled        bool     `json:"advancedScoringEnabled"`
+}
+```
+
+## type Avatar
+
+Avatar Images Large and medium size
+
+```go
+type Avatar struct {
+    Large  string `json:"large"`
+    Medium string `json:"medium"`
+}
+```
+
+## type Character
+
+Character Query
+
+```go
+type Character struct {
+    ID          int    `json:"id"`
+    Name        Name   `json:"name"`
+    Image       Image  `json:"image"`
+    Description string `json:"description"`
+    IsFavourite bool   `json:"isFavourite"`
+    SiteURL     string `json:"siteUrl"`
+    Favourites  int    `json:"favourites"`
+    ModNotes    string `json:"modNotes"`
+}
+```
+
+### func \(\*Character\) FilterCharacterByName
+
+```go
+func (c *Character) FilterCharacterByName(search string)
+```
+
+FilterCharacterByName filters the characters from aniList by search query or name of the character\.
+
+### func \(\*Character\) FilterCharacterID
+
+```go
+func (c *Character) FilterCharacterID(ID int)
+```
+
+FilterCharacterID search the character by it's ID
+
 ## type CharacterMedia
 
 CharacterMedia Media the actor voiced characters in\. \(Same data as characters with media as node instead of characters\)
@@ -120,6 +247,16 @@ Characters Characters ID must use Edges to call it and it's an array\.
 ```go
 type Characters struct {
     Edges []Edges `json:"edges"`
+}
+```
+
+## type Countries
+
+Countries of the media that the user watched/read from\.
+
+```go
+type Countries struct {
+    Country string `json:"country"`
 }
 ```
 
@@ -168,6 +305,40 @@ type ExternalLinks struct {
 }
 ```
 
+## type Favourites
+
+Favourites User Favourites
+
+```go
+type Favourites struct {
+    Anime      Anime      `json:"anime"`
+    Manga      Manga      `json:"manga"`
+    Characters Characters `json:"characters"`
+    Staff      StaffU     `json:"staff"`
+    Studios    Studio     `json:"studios"`
+}
+```
+
+## type Formats
+
+Formats user statistic formats
+
+```go
+type Formats struct {
+    Format string `json:"format"`
+}
+```
+
+## type Genres
+
+Genres user statistic Genres
+
+```go
+type Genres struct {
+    Genre string `json:"genre"`
+}
+```
+
 ## type Image
 
 Image of the staff Large or Medium
@@ -176,6 +347,52 @@ Image of the staff Large or Medium
 type Image struct {
     Large  string `json:"large"`
     Medium string `json:"medium"`
+}
+```
+
+## type Lengths
+
+Lengths user statistic lengths
+
+```go
+type Lengths struct {
+    Length string `json:"length"`
+}
+```
+
+## type Manga
+
+Manga id of use favourites
+
+```go
+type Manga struct {
+    Edges        []Edges        `json:"edges"`
+    Count        int            `json:"count"`
+    MeanScore    float64        `json:"meanScore"`
+    ChapterRead  int            `json:"chapterRead"`
+    Formats      []Formats      `json:"formats"`
+    Statuses     []Statuses     `json:"statuses"`
+    Scores       []Scores       `json:"scores"`
+    ReleaseYears []ReleaseYears `json:"releaseYears"`
+    StartYears   []StartYears   `json:"startYears"`
+    Genres       []Genres       `json:"genres"`
+    Tags         []TagsUser     `json:"tags"`
+    Countries    []Countries    `json:"countries"`
+}
+```
+
+## type MangaList
+
+MangaList part of MediaList
+
+```go
+type MangaList struct {
+    SectionOrder                  []string `json:"sectionOrder"`
+    SplitCompletedSectionByFormat bool     `json:"splitCompletedSectionByFormat"`
+    Theme                         Theme    `json:"theme"`
+    CustomLists                   []string `json:"customLists"`
+    AdvancedScoring               []string `json:"advancedScoring"`
+    AdvancedScoringEnabled        bool     `json:"advancedScoringEnabled"`
 }
 ```
 
@@ -361,6 +578,19 @@ func (m *Media) FilterMangaByID(id int)
 
 FilterMangaByID search Anilist Manga type: MANGA is hard\-coded in the query
 
+## type MediaListOptions
+
+MediaListOptions options for MediaList
+
+```go
+type MediaListOptions struct {
+    ScoreFormat string    `json:"scoreFormat"`
+    RowOrder    string    `json:"rowOrder"`
+    AnimeList   AnimeList `json:"animeList"`
+    MangaList   MangaList `json:"mangaList"`
+}
+```
+
 ## type MediaTrend
 
 MediaTrend Daily Media Statistics
@@ -460,6 +690,19 @@ type Node struct {
 }
 ```
 
+## type Options
+
+Options User Options
+
+```go
+type Options struct {
+    TitleLanguage       string `json:"titleLanguage"`
+    DisplayAdultContent bool   `json:"displayAdultContent"`
+    AiringNotification  bool   `json:"airingNotification"`
+    ProfileColor        string `json:"profileColor"`
+}
+```
+
 ## type Page
 
 Page Object to store pages
@@ -477,7 +720,7 @@ type Page struct {
 func (p *Page) PaginationByTitle(title string, page int, perPage int)
 ```
 
-PaginationByTitle  search Anilist Media by title returns arrayList of Media objects\, and pageInfor takes title string\, page \(which page to look for\)\, PerPage The amount of entries per page\, max 50
+PaginationByTitle search Anilist Media by title returns arrayList of Media objects\, and pageInfor takes title string\, page \(which page to look for\)\, PerPage The amount of entries per page\, max 50
 
 ## type PageInfo
 
@@ -534,6 +777,16 @@ type Relations struct {
 }
 ```
 
+## type ReleaseYears
+
+ReleaseYears user statistic ReleaseYear
+
+```go
+type ReleaseYears struct {
+    ReleaseYear int `json:"releaseYear"`
+}
+```
+
 ## type Reviews
 
 Reviews If the authenticated user have made review for it I believe\.
@@ -552,6 +805,16 @@ ScoreDistribution individual item to access it use array such as ScoreDistributi
 type ScoreDistribution struct {
     Score  int `json:"score"`
     Amount int `json:"amount"`
+}
+```
+
+## type Scores
+
+Scores user statistic scores
+
+```go
+type Scores struct {
+    Score string `json:"status"`
 }
 ```
 
@@ -606,6 +869,16 @@ type StaffMedia struct {
 }
 ```
 
+## type StaffU
+
+StaffU staff favourite on users profile
+
+```go
+type StaffU struct {
+    Edges []Edges `json:"edges"`
+}
+```
+
 ## type StartDate
 
 StartDate object that have year month and day of the anime
@@ -615,6 +888,27 @@ type StartDate struct {
     Year  int `json:"year"`
     Month int `json:"month"`
     Day   int `json:"day"`
+}
+```
+
+## type StartYears
+
+StartYears user statistic StartYears
+
+```go
+type StartYears struct {
+    StartYear int `json:"startYear"`
+}
+```
+
+## type Statistics
+
+Statistics User statistics anime or scores
+
+```go
+type Statistics struct {
+    Anime Anime `json:"anime"`
+    Manga Manga `json:"manga"`
 }
 ```
 
@@ -637,6 +931,16 @@ StatusDistribution individual item to access it use array such as StatusDistribu
 type StatusDistribution struct {
     Status string `json:"status"`
     Amount int    `json:"amount"`
+}
+```
+
+## type Statuses
+
+Statuses user statistic status
+
+```go
+type Statuses struct {
+    Status string `json:"status"`
 }
 ```
 
@@ -663,6 +967,16 @@ type Studio struct {
 }
 ```
 
+## type Tag
+
+Tag A tag that describes a theme or element of the media\\
+
+```go
+type Tag struct {
+    ID int `json:"id"`
+}
+```
+
 ## type Tags
 
 Tags object contais the ID for tags
@@ -670,6 +984,32 @@ Tags object contais the ID for tags
 ```go
 type Tags struct {
     ID int `json:"id"`
+}
+```
+
+## type TagsUser
+
+TagsUser A tag that describes a theme or element of the media
+
+```go
+type TagsUser struct {
+    Count          int     `json:"count"`
+    MeanScore      float64 `json:"meanScore"`
+    MinutesWatched int64   `json:"minutesWatched"`
+    MediaIds       []int   `json:"mediaIds"`
+    Tag            Tag     `json:"tag"`
+}
+```
+
+## type Theme
+
+Theme user theme types
+
+```go
+type Theme struct {
+    ThemeType   string `json:"themeType"`
+    Theme       string `json:"theme"`
+    CoverImages string `json:"coverImages"`
 }
 ```
 
@@ -695,3 +1035,47 @@ type Trailer struct {
     ID string `json:"id"`
 }
 ```
+
+## type User
+
+User query for Anilist
+
+```go
+type User struct {
+    ID                      int64            `json:"id"`
+    Name                    string           `json:"name"`
+    About                   string           `json:"about"`
+    Avatar                  Avatar           `json:"avatar"`
+    BannerImage             string           `json:"bannerImage"`
+    IsFollowing             bool             `json:"isFollowing"`
+    IsFollower              bool             `json:"isFollower"`
+    IsBlocked               bool             `json:"isBlocked"`
+    Bans                    []string         `json:"bans"`
+    Options                 Options          `json:"options"`
+    MediaListOptions        MediaListOptions `json:"mediaListOptions"`
+    Favourites              Favourites       `json:"favourites"`
+    UnreadNotificationCount int              `json:"unreadNotificationCount"`
+    SiteURL                 string           `json:"siteUrl"`
+    Statistics              Statistics       `json:"statistics"`
+    DonatorTier             int              `json:"donatorTier"`
+    DonatorBadge            string           `json:"donatorBadge"`
+    ModeratorStatus         string           `json:"moderatorStatus"`
+    UpdatedAt               int              `json:"updatedAt"`
+}
+```
+
+### func \(\*User\) FilterUserByID
+
+```go
+func (u *User) FilterUserByID(ID int)
+```
+
+FilterUserByID Search Anilist User by it's ID
+
+### func \(\*User\) FilterUserByName
+
+```go
+func (u *User) FilterUserByName(name string)
+```
+
+FilterUserByName Search Anilist User by it's userName
