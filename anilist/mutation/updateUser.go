@@ -237,3 +237,223 @@ func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string
 
 	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
 }
+
+// UpdateUserAnimeListOptionsplitCompletedSectionByFormat If the completed sections of the list should be separated by format
+func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(animeListOptions:{splitCompletedSectionByFormat:%v}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, format),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUserAnimeListOptionsCustomLists The names of the user's custom lists
+func UpdateUserAnimeListOptionsCustomLists(customList string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(animeListOptions:{customLists:"%v"}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, customList),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUserAdvancedScoringEnabled If advanced scoring is enabled
+func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(animeListOptions:{advancedScoringEnabled:%v}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, scoring),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUseradvancedScoring The names of the user's advanced scoring sections
+func UpdateUseradvancedScoring(name string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(animeListOptions:{advancedScoring:"%v"}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, name),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// Manga
+
+// UpdateUserMangaListOptionsSectionOrder A user's list options for anime or manga lists
+func UpdateUserMangaListOptionsSectionOrder(sectionOrder string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(mangaListOptions:{sectionOrder:"%v"}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, sectionOrder),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUserMangaListOptionsplitCompletedSectionByFormat If the completed sections of the list should be separated by format
+func UpdateUserMangaListOptionsplitCompletedSectionByFormat(format bool, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(mangaListOptions:{splitCompletedSectionByFormat:%v}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, format),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUserMangaListOptionsCustomLists The names of the user's custom lists
+func UpdateUserMangaListOptionsCustomLists(customList string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(mangaListOptions:{customLists:"%v"}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, customList),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// DeleteCustomListManga Delete a custom list and remove the list entries from it
+func DeleteCustomListManga(customList string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        DeleteCustomList(type:MANGA, customList:"%v") {
+    			deleted,
+  			},
+		}`, customList),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// DeleteCustomLisAnime Delete a custom list and remove the list entries from it
+func DeleteCustomLisAnime(customList string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        DeleteCustomList(type:ANIME, customList:"%v") {
+    			deleted,
+  			},
+		}`, customList),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
