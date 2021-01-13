@@ -36,7 +36,7 @@ func PostRequest(jsonValue []byte) []byte {
 	return data
 }
 
-// PostRequestAuth Test Request
+// PostRequestAuth Request with token and auth token can be retrived from anilist
 func PostRequestAuth(jsonValue []byte, authKey string) []byte {
 	var request *http.Request
 	var err error
