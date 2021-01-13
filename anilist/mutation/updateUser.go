@@ -144,3 +144,96 @@ func UpdateUserProfileColor(profileColor string, authToken string) {
 
 	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
 }
+
+// UpdateUserNotificationOption The user's Notification options
+/*func
+
+ACTIVITY_MESSAGE
+A user has sent you message
+
+ACTIVITY_REPLY
+A user has replied to your activity
+
+FOLLOWING
+A user has followed you
+
+ACTIVITY_MENTION
+A user has mentioned you in their activity
+
+THREAD_COMMENT_MENTION
+A user has mentioned you in a forum comment
+
+THREAD_SUBSCRIBED
+A user has commented in one of your subscribed forum threads
+
+THREAD_COMMENT_REPLY
+A user has replied to your forum comment
+
+AIRING
+An anime you are currently watching has aired
+
+ACTIVITY_LIKE
+A user has liked your activity
+
+ACTIVITY_REPLY_LIKE
+A user has liked your activity reply
+
+THREAD_LIKE
+A user has liked your forum thread
+
+THREAD_COMMENT_LIKE
+A user has liked your forum comment
+
+ACTIVITY_REPLY_SUBSCRIBED
+A user has replied to activity you have also replied to
+
+RELATED_MEDIA_ADDITION
+A new anime or manga has been added to the site where its related media is on the user's list
+*/
+func UpdateUserNotificationOption(notificationType string, enabled bool, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(notificationOptions:{type:%v,enabled:%v}) {
+				options {
+					notificationOptions {
+						type,
+						enabled,
+					},
+				},
+			},
+		}`, notificationType, enabled),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// UpdateUserAnimeListOptionSectionOrder A user's list options for anime or manga lists
+func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string) {
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        UpdateUser(animeListOptions:{sectionOrder:"%v"}) {
+				mediaListOptions {
+					animeList {
+						sectionOrder
+						splitCompletedSectionByFormat
+						customLists
+						advancedScoring
+						advancedScoringEnabled
+					}
+				},
+			},
+		}`, sectionOrder),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
