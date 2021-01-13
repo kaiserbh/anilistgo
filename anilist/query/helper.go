@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"regexp"
+	"time"
 )
 
 // regex Helper
@@ -20,6 +21,7 @@ func PostRequest(jsonValue []byte) []byte {
 	// Check if the respone is 200 if not then media is not found or server might be down.
 	if resp.StatusCode != 200 {
 		fmt.Println("Media Not Found got Error with statusCode: ", resp.StatusCode)
+		fmt.Println(resp.Body)
 	}
 
 	if resp.Body != nil {
@@ -32,6 +34,47 @@ func PostRequest(jsonValue []byte) []byte {
 	}
 
 	return data
+}
+
+// PostRequestAuth Request with token and auth token can be retrived from anilist
+func PostRequestAuth(jsonValue []byte, authKey string) []byte {
+	var request *http.Request
+	var err error
+
+	timeout := time.Duration(5 * time.Second)
+	client := &http.Client{
+		Timeout: timeout,
+	}
+
+	if jsonValue != nil {
+		body := bytes.NewBuffer(jsonValue)
+		request, err = http.NewRequest("POST", url, body)
+		if err != nil {
+			fmt.Println(err)
+		}
+	} else {
+		request, err = http.NewRequest("application/json", url, nil)
+	}
+	request.Header.Set("Authorization", "Bearer "+authKey)
+	request.Header.Set("Accept", "application/json")
+	request.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(request)
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+
+	if resp.StatusCode != 200 {
+		fmt.Println("Error: ", resp.Body)
+	} else {
+		fmt.Println("SUCCESS")
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error: ", err)
+	}
+	return body
 }
 
 // CleanJSON cleans the html body by removing unnecessary html tags using regex.
