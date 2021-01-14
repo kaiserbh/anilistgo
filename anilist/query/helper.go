@@ -67,7 +67,7 @@ func PostRequestAuth(jsonValue []byte, authKey string) []byte {
 	if resp.StatusCode != 200 {
 		fmt.Println("Error: ", resp.Body)
 	} else {
-		fmt.Println("SUCCESS")
+		fmt.Println(" ------------ SUCCESS ------------")
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -143,5 +143,13 @@ func CleanUserJSON(str []byte) []byte {
 	substitution := ""
 	firstItr := re.ReplaceAll(str, []byte(substitution))
 
+	return firstItr
+}
+
+// CleanUserListJSON clean the body for the usermedialist
+func CleanUserListJSON(str []byte) []byte {
+	re := regexp.MustCompile(`(?m){"data":{"Media":{"mediaListEntry":|}}}$`)
+	substitution := ""
+	firstItr := re.ReplaceAll(str, []byte(substitution))
 	return firstItr
 }

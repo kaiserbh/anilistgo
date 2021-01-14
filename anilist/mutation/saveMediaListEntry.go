@@ -214,3 +214,29 @@ func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) {
 
 	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
 }
+
+// DeleteMediaListEntry Delete a media list entry
+// just provide media ID it will then be converted to the mediaList ID
+/*
+id: Int
+The id of the media list entry to delete
+*/
+func DeleteMediaListEntry(ID int, authToken string) {
+	u := anilist.MediaListEntry{}
+	u.GetUserMediaList(ID, authToken)
+
+	query := map[string]string{
+		"query": fmt.Sprintf(`mutation{
+	        DeleteMediaListEntry( id:%v){
+				deleted,
+			},
+		}`, u.ID),
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
