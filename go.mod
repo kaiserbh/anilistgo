@@ -1,4 +1,4 @@
-module AniListGoWrapper
+module anilistGo
 
 go 1.15
 
