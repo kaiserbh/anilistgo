@@ -1,7 +1,7 @@
 package anilist
 
 import (
-	anilist "AniListGoWrapper/anilist/query"
+	anilist "anilistGo/anilist/query"
 	"encoding/json"
 	"fmt"
 )
@@ -456,4 +456,27 @@ func DeleteCustomLisAnime(customList string, authToken string) {
 	}
 
 	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+}
+
+// ResetTheme will reset theme to default values which is "list" if encounter anime list that can't be shown even when the list is not big try using this
+func ResetTheme(authKey string) {
+	query := map[string]string{
+		"query": `mutation{
+	          UpdateUser(animeListOptions: {theme:"list"}){
+				mediaListOptions {
+					animeList {
+						theme,
+					},
+				},
+			},
+		}`,
+	}
+
+	jsonValue, err := json.Marshal(query)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authKey)))
+
 }
