@@ -5,6 +5,12 @@ Most of the functionality is completed for querying media from Anilist and Mutat
 Anilist is an online manga/anime database and social networking service
 More information on Anilist can be found here : [anilist](https://anilist.co/home)
 
+# INSTALLATION
+
+```go
+go get github.com/kaiserbh/anilistgo
+```
+
 # Examples
 
 ## Query
