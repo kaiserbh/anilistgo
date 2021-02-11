@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"

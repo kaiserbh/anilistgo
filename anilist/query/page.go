@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -18,6 +18,12 @@ type PageInfo struct {
 	CurrentPage int  `json:"currentPage"`
 	LastPage    int  `json:"lastPage"`
 	HasNextPage bool `json:"hasNextPage"`
+}
+
+// NewPage Create new NewMediaTrend Object
+func NewPage() *Page {
+	p := Page{}
+	return &p
 }
 
 // PaginationByTitle  search Anilist Media by title returns arrayList of Media objects, and pageInfor takes title string, page (which page to look for), PerPage The amount of entries per page, max 50

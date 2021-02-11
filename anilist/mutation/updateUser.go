@@ -1,9 +1,10 @@
-package anilist
+package mutation
 
 import (
-	anilist "anilistGo/anilist/query"
 	"encoding/json"
 	"fmt"
+
+	anilist "github.com/kaiserbh/anilistgo/anilist/query"
 )
 
 //UpdateUserAbout User's about/bio text.

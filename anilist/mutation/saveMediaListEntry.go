@@ -1,9 +1,10 @@
-package anilist
+package mutation
 
 import (
-	anilist "anilistGo/anilist/query"
 	"encoding/json"
 	"fmt"
+
+	anilist "github.com/kaiserbh/anilistgo/anilist/query"
 )
 
 //SaveMediaListEntry create or update a media list SaveMediaListEntry

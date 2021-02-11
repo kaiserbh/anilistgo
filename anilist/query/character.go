@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -34,6 +34,12 @@ const characterQuery = `id,
 					favourites,
 					modNotes,
 				`
+
+func newCharacterQuery() *Character {
+	n := Character{}
+
+	return &n
+}
 
 // FilterCharacterByName filters the characters from aniList by search query or name of the character.
 func (c *Character) FilterCharacterByName(search string) {
