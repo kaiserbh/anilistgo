@@ -500,11 +500,11 @@ func (m *Media) FilterBySeason(season string) {
 }
 
 // FilterByTitle search Anilist Media by title of the anime or manga
-func (m *Media) FilterByTitle(title string) {
+func (m *Media) FilterByTitle(title string) error {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(search: "%v") {
+			Media(search: "%v" type: ANIME) {
 				%s
 			  }
 		}
@@ -513,23 +513,24 @@ func (m *Media) FilterByTitle(title string) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	cleanData := cleanMediaJSON(PostRequest(jsonValue))
 
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err
 	}
 
+	return nil
 }
 
 // FilterAnimeByID search Anilist Anime only type: ANIME is hard-coded in the query
-func (m *Media) FilterAnimeByID(id int) {
+func (m *Media) FilterAnimeByID(id int) error {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(id: %v type: ANIME) {
+			Media(id: %v) {
 				%s
 			  }
 		}
@@ -538,14 +539,16 @@ func (m *Media) FilterAnimeByID(id int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	cleanData := cleanMediaJSON(PostRequest(jsonValue))
 
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err
 	}
+
+	return nil
 
 }
 
