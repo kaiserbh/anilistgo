@@ -504,7 +504,7 @@ func (m *Media) FilterByTitle(title string) error {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(search: "%v" type: ANIME) {
+			Media(search: "%v" ) {
 				%s
 			  }
 		}
@@ -530,7 +530,7 @@ func (m *Media) FilterAnimeByID(id int) error {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(id: %v) {
+			Media(id: %v type: ANIME) {
 				%s
 			  }
 		}
