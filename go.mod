@@ -1,3 +1,3 @@
 module github.com/kaiserbh/anilistgo
 
-go 1.15
+go 1.16
