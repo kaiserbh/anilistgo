@@ -3,6 +3,7 @@ package query
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 // Media object to store the json from Anilist
@@ -153,6 +154,7 @@ type Tags struct {
 // Relations Object I believe relations to the anime/manga
 type Relations struct {
 	Edges []Edges `json:"edges"`
+	Nodes []Node  `json:"nodes"`
 }
 
 // Edges some data have edges so need a different one.
@@ -300,6 +302,9 @@ const mediaQuery = `id,
 				  edges {
 					id,
 				  },
+				  nodes {
+						id,
+					},
 				},
 				characters {
 				  edges {
@@ -499,12 +504,12 @@ func (m *Media) FilterBySeason(season string) {
 
 }
 
-// FilterByTitle search Anilist Media by title of the anime or manga
+// FilterByTitle search Anilist Media by title of the anime
 func (m *Media) FilterByTitle(title string) error {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(search: "%v" ) {
+			Media(search: "%v" type: ANIME ) {
 				%s
 			  }
 		}
@@ -539,12 +544,14 @@ func (m *Media) FilterAnimeByID(id int) error {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
+		log.Println(err)
 		return err
 	}
 
 	cleanData := cleanMediaJSON(PostRequest(jsonValue))
 
 	if err := json.Unmarshal(cleanData, &m); err != nil {
+		log.Println(err)
 		return err
 	}
 
