@@ -19,7 +19,7 @@ go get github.com/kaiserbh/anilistgo
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-c := query.Character{}
+c := anilistgo.NewCharacterQuery()
 
 ok, err := c.FilterCharacterByName("Nezuko")
 if err != nil{
@@ -33,7 +33,7 @@ if ok{
 	
 // can do this as well without ok variable.
 import "github.com/kaiserbh/anilistgo"
-c := query.Character{}
+c := anilistgo.NewCharacterQuery()
 
 _, err := c.FilterCharacterByName("Nezuko-channnnnn")
 if err != nil{
@@ -47,7 +47,7 @@ fmt.Printf("%+v\n", c)
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-u := query.User{}
+u := anilistgo.NewUserQuery()
 
 ok, err : = u.FilterUserByID(197690)
 if err != nil{
@@ -61,7 +61,7 @@ fmt.Printf("%+v\n", u)
 
 // can do this as well without ok variable.
 import "github.com/kaiserbh/anilistgo"
-c := query.Character{}
+u := NewUserQuery
 
 _, err : = u.FilterUserByID(197690)
 if err != nil{
@@ -75,7 +75,7 @@ fmt.Printf("%+v\n", u)
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-m := query.Media{}
+m := NewMediaQuery()
 
 ok, err := m.FilterByID(1)
 if err != nil{
@@ -89,7 +89,7 @@ fmt.Printf("%+v\n", m)
 
 // can do this as well without ok variable.
 import "github.com/kaiserbh/anilistgo"
-m := query.Media{}
+m := NewMediaQuery()
 
 _, err := m.FilterByID(1)
 if err != nil{
@@ -104,7 +104,7 @@ fmt.Printf("%+v\n", u)
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-p := query.Page{}
+p := NewPageQuery()
 
 ok, err := p.PaginationByTitle("Attack on Titan", 1, 10) // takes title, page number, and per page amount
 if err != nil{
@@ -121,7 +121,7 @@ fmt.Printf("%+v\n", p)
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-mt := query.MediaTrend{}
+mt := NewMediaTrendQuery()
 ok,err := mt.SearchByMediaID(1)
 if err != nil{
 	panic(err)
@@ -136,7 +136,7 @@ if ok{
 
 ```go
 import "github.com/kaiserbh/anilistgo"
-s := query.Staff{}
+s := NewStaffQuery()
 
 ok, err := s.FilterStaffByName("Hideaki Sorachi")
 if err  != nil {
@@ -155,7 +155,7 @@ if ok{
 ```go
 import  "github.com/kaiserbh/anilistgo"
 authKey := "long ass string"
-ok, err := mutation.SaveMediaListEntry(1, "CURRENT", 0, authKey)
+ok, err := anilistgo.SaveMediaListEntry(1, "CURRENT", 0, authKey)
 if err != nil{
 	panic(err)
 }
@@ -170,7 +170,7 @@ if ok{
 import "github.com/kaiserbh/anilistgo"
 authKey := "long ass string"
 
-ok, err := mutation.UpdateUserAbout("uwu I love anime", authKey)
+ok, err := anilist.UpdateUserAbout("uwu I love anime", authKey)
 if err != nil{
     panic(err)
 }

@@ -17,7 +17,7 @@ type Character struct {
 	ModNotes    string `json:"modNotes"`
 }
 
-const characterQuery = `id,
+const CharacterQuery = `id,
 					name {
 						first,
 						last,
@@ -35,6 +35,7 @@ const characterQuery = `id,
 					modNotes,
 				`
 
+// NewCharacterQuery creates Character objects
 func NewCharacterQuery() *Character {
 	n := Character{}
 
@@ -50,7 +51,7 @@ func (c *Character) FilterCharacterByName(search string) (bool, error) {
 				%s
 			  }
 		}
-	`, search, characterQuery),
+	`, search, CharacterQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -80,7 +81,7 @@ func (c *Character) FilterCharacterID(ID int) (bool, error) {
 				%s
 			  }
 		}
-	`, ID, characterQuery),
+	`, ID, CharacterQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)

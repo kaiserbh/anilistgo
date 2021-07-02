@@ -18,8 +18,8 @@ type MediaListEntry struct {
 	User            User   `json:"user"`
 }
 
-// NewMediaListQuery Create new MediaListEntry Object
-func NewMediaListQuery() *MediaListEntry {
+// NewUserMediaListQuery Create new MediaListEntry Object
+func NewUserMediaListQuery() *MediaListEntry {
 	m := MediaListEntry{}
 	return &m
 }

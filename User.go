@@ -368,7 +368,7 @@ func (u *User) FilterUserByName(name string) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanUserJSON(request)
 	if err := json.Unmarshal(cleanData, &u); err != nil {
 		return false, err
 	}
@@ -398,7 +398,8 @@ func (u *User) FilterUserByID(ID int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanUserJSON(request)
+
 	if err := json.Unmarshal(cleanData, &u); err != nil {
 		return false, err
 	}

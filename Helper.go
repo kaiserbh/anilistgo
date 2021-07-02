@@ -48,7 +48,7 @@ func PostRequestAuth(jsonValue []byte, authKey string) ([]byte, error) {
 	var request *http.Request
 	var err error
 
-	timeout := time.Duration(5 * time.Second)
+	timeout := 5 * time.Second
 	client := &http.Client{
 		Timeout: timeout,
 	}
