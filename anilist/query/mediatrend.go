@@ -88,7 +88,7 @@ func NewMediaTrend() *MediaTrend {
 }
 
 // SearchByMediaID searches mediaTrend by anilist ID
-func (m *MediaTrend) SearchByMediaID(id int) (error, bool) {
+func (m *MediaTrend) SearchByMediaID(id int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -101,24 +101,24 @@ func (m *MediaTrend) SearchByMediaID(id int) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // FilterByTrendingAmount filters by trending amount
-func (m *MediaTrend) FilterByTrendingAmount(trending int) (error, bool) {
+func (m *MediaTrend) FilterByTrendingAmount(trending int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -131,24 +131,24 @@ func (m *MediaTrend) FilterByTrendingAmount(trending int) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // FilterByTrendingAverageScore filters by average score
-func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) (error, bool) {
+func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -161,24 +161,24 @@ func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) (error, bool
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // FilterByPopularity filters by popularity
-func (m *MediaTrend) FilterByPopularity(popularity int) (error, bool) {
+func (m *MediaTrend) FilterByPopularity(popularity int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -191,24 +191,24 @@ func (m *MediaTrend) FilterByPopularity(popularity int) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // FilterByEpisode filters by episode number
-func (m *MediaTrend) FilterByEpisode(episode int) (error, bool) {
+func (m *MediaTrend) FilterByEpisode(episode int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -221,18 +221,18 @@ func (m *MediaTrend) FilterByEpisode(episode int) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
