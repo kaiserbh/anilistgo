@@ -119,7 +119,7 @@ func (s *Staff) FilterStaffByID(id int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanStaffJSON(request)
 	if err := json.Unmarshal(cleanData, &s); err != nil {
 		return false, err
 	}
@@ -149,7 +149,7 @@ func (s *Staff) FilterStaffByName(name string) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanStaffJSON(request)
 	if err := json.Unmarshal(cleanData, &s); err != nil {
 		return false, err
 	}
