@@ -347,7 +347,7 @@ func NewUserQuery() *User {
 }
 
 // FilterUserByName Search Anilist User by it's userName
-func (u *User) FilterUserByName(name string) {
+func (u *User) FilterUserByName(name string) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -360,17 +360,24 @@ func (u *User) FilterUserByName(name string) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return false, err
 	}
 
-	cleanData := CleanUserJSON(PostRequest(jsonValue))
-	if err := json.Unmarshal(cleanData, &u); err != nil {
-		panic(err)
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return false, err
 	}
+
+	cleanData := CleanCharacterJSON(request)
+	if err := json.Unmarshal(cleanData, &u); err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
 // FilterUserByID Search Anilist User by it's ID
-func (u *User) FilterUserByID(ID int) {
+func (u *User) FilterUserByID(ID int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -383,11 +390,18 @@ func (u *User) FilterUserByID(ID int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return false, err
 	}
 
-	cleanData := CleanUserJSON(PostRequest(jsonValue))
-	if err := json.Unmarshal(cleanData, &u); err != nil {
-		panic(err)
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return false, err
 	}
+
+	cleanData := CleanCharacterJSON(request)
+	if err := json.Unmarshal(cleanData, &u); err != nil {
+		return false, err
+	}
+
+	return true, nil
 }

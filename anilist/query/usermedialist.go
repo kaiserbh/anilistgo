@@ -25,7 +25,7 @@ func NewMediaListQuery() *MediaListEntry {
 }
 
 // GetUserMediaList will return the authenticated user media list
-func (m *MediaListEntry) GetUserMediaList(ID int, authToken string) {
+func (m *MediaListEntry) GetUserMediaList(ID int, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`
 		{
@@ -51,12 +51,15 @@ func (m *MediaListEntry) GetUserMediaList(ID int, authToken string) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return false, err
 	}
+	request, _ := PostRequestAuth(jsonValue, authToken)
 
-	cleanData := CleanUserListJSON(PostRequestAuth(jsonValue, authToken))
+	cleanData := CleanUserListJSON(request)
 
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return false, err
 	}
+
+	return true, nil
 }
