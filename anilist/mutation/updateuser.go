@@ -7,7 +7,7 @@ import (
 )
 
 //UpdateUserAbout User's about/bio text.
-func UpdateUserAbout(about string, authToken string) (error, bool) {
+func UpdateUserAbout(about string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(about:"%v"){
@@ -18,19 +18,19 @@ func UpdateUserAbout(about string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserTitleLanguage User's title language/ The language the user wants to see media titles in such as ROMAJI, ENGLISH, NATIVE, ROMAJI_STYLISED, ENGLISH_STYLISED, NATIVE_STYLISED
-func UpdateUserTitleLanguage(titleLanguage string, authToken string) (error, bool) {
+func UpdateUserTitleLanguage(titleLanguage string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(titleLanguage:%v){
@@ -43,19 +43,19 @@ func UpdateUserTitleLanguage(titleLanguage string, authToken string) (error, boo
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserAdultContent If the user should see media marked as adult-only boolean
-func UpdateUserAdultContent(displayAdultContent bool, authToken string) (error, bool) {
+func UpdateUserAdultContent(displayAdultContent bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(displayAdultContent:%v){
@@ -68,19 +68,19 @@ func UpdateUserAdultContent(displayAdultContent bool, authToken string) (error, 
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserAiringNotification If the user should get notifications when a show they are watching aires
-func UpdateUserAiringNotification(airingNotifications bool, authToken string) (error, bool) {
+func UpdateUserAiringNotification(airingNotifications bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(airingNotifications:%v){
@@ -94,19 +94,19 @@ func UpdateUserAiringNotification(airingNotifications bool, authToken string) (e
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserScoreFormat The user's list scoring system/Media list scoring type such as POINT_100, POINT_10_DECIMAL, POINT_10, POINT_5, POINT_3
-func UpdateUserScoreFormat(scoreFormat string, authToken string) (error, bool) {
+func UpdateUserScoreFormat(scoreFormat string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(scoreFormat:%v){
@@ -119,19 +119,19 @@ func UpdateUserScoreFormat(scoreFormat string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserRowOrder The user's default list order such as Score, title, last updated, last added
-func UpdateUserRowOrder(rowOrder string, authToken string) (error, bool) {
+func UpdateUserRowOrder(rowOrder string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(rowOrder:"%v"){
@@ -144,19 +144,19 @@ func UpdateUserRowOrder(rowOrder string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 //UpdateUserProfileColor The user's Profile highlight color: blue, purple, green, orange, red, pink
-func UpdateUserProfileColor(profileColor string, authToken string) (error, bool) {
+func UpdateUserProfileColor(profileColor string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(profileColor:"%v"){
@@ -169,15 +169,15 @@ func UpdateUserProfileColor(profileColor string, authToken string) (error, bool)
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserNotificationOption The user's Notification options
@@ -225,7 +225,7 @@ A user has replied to activity you have also replied to
 RELATED_MEDIA_ADDITION
 A new anime or manga has been added to the site where its related media is on the user's list
 */
-func UpdateUserNotificationOption(notificationType string, enabled bool, authToken string) (error, bool) {
+func UpdateUserNotificationOption(notificationType string, enabled bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(notificationOptions:{type:%v,enabled:%v}) {
@@ -241,19 +241,19 @@ func UpdateUserNotificationOption(notificationType string, enabled bool, authTok
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserAnimeListOptionSectionOrder A user's list options for anime or manga lists
-func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string) (error, bool) {
+func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{sectionOrder:"%v"}) {
@@ -272,19 +272,19 @@ func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserAnimeListOptionsplitCompletedSectionByFormat If the completed sections of the list should be separated by format
-func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authToken string) (error, bool) {
+func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{splitCompletedSectionByFormat:%v}) {
@@ -303,19 +303,19 @@ func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authTok
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserAnimeListOptionsCustomLists The names of the user's custom lists
-func UpdateUserAnimeListOptionsCustomLists(customList string, authToken string) (error, bool) {
+func UpdateUserAnimeListOptionsCustomLists(customList string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{customLists:"%v"}) {
@@ -334,19 +334,19 @@ func UpdateUserAnimeListOptionsCustomLists(customList string, authToken string) 
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserAdvancedScoringEnabled If advanced scoring is enabled
-func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) (error, bool) {
+func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{advancedScoringEnabled:%v}) {
@@ -365,19 +365,19 @@ func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) (error, bo
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserAdvancedScoring The names of the user's advanced scoring sections
-func UpdateUserAdvancedScoring(name string, authToken string) (error, bool) {
+func UpdateUserAdvancedScoring(name string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{advancedScoring:"%v"}) {
@@ -396,21 +396,21 @@ func UpdateUserAdvancedScoring(name string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // Manga
 
 // UpdateUserMangaListOptionsSectionOrder A user's list options for anime or manga lists
-func UpdateUserMangaListOptionsSectionOrder(sectionOrder string, authToken string) (error, bool) {
+func UpdateUserMangaListOptionsSectionOrder(sectionOrder string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(mangaListOptions:{sectionOrder:"%v"}) {
@@ -429,19 +429,19 @@ func UpdateUserMangaListOptionsSectionOrder(sectionOrder string, authToken strin
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserMangaListOptionSplitCompletedSectionByFormat If the completed sections of the list should be separated by format
-func UpdateUserMangaListOptionSplitCompletedSectionByFormat(format bool, authToken string) (error, bool) {
+func UpdateUserMangaListOptionSplitCompletedSectionByFormat(format bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(mangaListOptions:{splitCompletedSectionByFormat:%v}) {
@@ -460,19 +460,19 @@ func UpdateUserMangaListOptionSplitCompletedSectionByFormat(format bool, authTok
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // UpdateUserMangaListOptionsCustomLists The names of the user's custom lists
-func UpdateUserMangaListOptionsCustomLists(customList string, authToken string) (error, bool) {
+func UpdateUserMangaListOptionsCustomLists(customList string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(mangaListOptions:{customLists:"%v"}) {
@@ -491,19 +491,19 @@ func UpdateUserMangaListOptionsCustomLists(customList string, authToken string) 
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // DeleteCustomListManga Delete a custom list and remove the list entries from it
-func DeleteCustomListManga(customList string, authToken string) (error, bool) {
+func DeleteCustomListManga(customList string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        DeleteCustomList(type:MANGA, customList:"%v") {
@@ -514,19 +514,19 @@ func DeleteCustomListManga(customList string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // DeleteCustomLisAnime Delete a custom list and remove the list entries from it
-func DeleteCustomLisAnime(customList string, authToken string) (error, bool) {
+func DeleteCustomLisAnime(customList string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        DeleteCustomList(type:ANIME, customList:"%v") {
@@ -537,19 +537,19 @@ func DeleteCustomLisAnime(customList string, authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // ResetTheme will reset theme to default values which is "list" if encounter anime list that can't be shown even when the list is not big try using this
-func ResetTheme(authToken string) (error, bool) {
+func ResetTheme(authToken string) (bool, error) {
 	query := map[string]string{
 		"query": `mutation{
 	          UpdateUser(animeListOptions: {theme:"list"}){
@@ -564,13 +564,13 @@ func ResetTheme(authToken string) (error, bool) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	_, err = anilist.PostRequestAuth(jsonValue, authToken)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
