@@ -17,6 +17,7 @@ type Character struct {
 	ModNotes    string `json:"modNotes"`
 }
 
+// CharacterQuery graphql constant for CharacterQuery
 const CharacterQuery = `id,
 					name {
 						first,

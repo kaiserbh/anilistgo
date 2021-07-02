@@ -49,6 +49,7 @@ type CharacterMedia struct {
 	Edges []Edges `json:"edges"`
 }
 
+// StaffQuery graphql constant for StaffQuery
 const StaffQuery = `id,
 					name {
 						first,

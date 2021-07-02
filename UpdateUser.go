@@ -181,8 +181,7 @@ func UpdateUserProfileColor(profileColor string, authToken string) (bool, error)
 }
 
 // UpdateUserNotificationOption The user's Notification options
-
-//ACTIVITY_MESSAGE
+//  ACTIVITY_MESSAGE
 //A user has sent you message
 //
 //ACTIVITY_REPLY
@@ -223,7 +222,6 @@ func UpdateUserProfileColor(profileColor string, authToken string) (bool, error)
 //
 //RELATED_MEDIA_ADDITION
 //A new anime or manga has been added to the site where its related media is on the user's list
-
 func UpdateUserNotificationOption(notificationType string, enabled bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{

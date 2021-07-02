@@ -18,7 +18,8 @@ type MediaTrend struct {
 	Media        Media `json:"media"`
 }
 
-const MediaTrendQueries = `mediaId,
+// MediaTrendQuery graphql constant for MediaTrendQuery
+const MediaTrendQuery = `mediaId,
 						   date,
 						   trending,
 						   averageScore,
@@ -96,7 +97,7 @@ func (m *MediaTrend) SearchByMediaID(id int) (bool, error) {
 				%s
 			  }
 		}
-	`, id, MediaTrendQueries),
+	`, id, MediaTrendQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -126,7 +127,7 @@ func (m *MediaTrend) FilterByTrendingAmount(trending int) (bool, error) {
 				%s
 			  }
 		}
-	`, trending, MediaTrendQueries),
+	`, trending, MediaTrendQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -156,7 +157,7 @@ func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) (bool, error
 				%s
 			  }
 		}
-	`, averageScore, MediaTrendQueries),
+	`, averageScore, MediaTrendQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -186,7 +187,7 @@ func (m *MediaTrend) FilterByPopularity(popularity int) (bool, error) {
 				%s
 			  }
 		}
-	`, popularity, MediaTrendQueries),
+	`, popularity, MediaTrendQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -216,7 +217,7 @@ func (m *MediaTrend) FilterByEpisode(episode int) (bool, error) {
 				%s
 			  }
 		}
-	`, episode, MediaTrendQueries),
+	`, episode, MediaTrendQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)

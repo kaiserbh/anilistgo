@@ -145,7 +145,7 @@ type CoverImage struct {
 	Color      string `json:"color"`
 }
 
-// Tags object contais the ID for tags
+// Tags object contains the ID for tags
 type Tags struct {
 	ID int `json:"id"`
 }
