@@ -1,10 +1,8 @@
-package mutation
+package AniListGo
 
 import (
 	"encoding/json"
 	"fmt"
-
-	anilist "github.com/kaiserbh/anilistgo/anilist/query"
 )
 
 //SaveMediaListEntry create or update a media list SaveMediaListEntry
@@ -53,7 +51,7 @@ func SaveMediaListEntry(mediaID int, status string, progress int, authToken stri
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -84,7 +82,7 @@ func SaveMediaListEntryWithScore(mediaID int, status string, progress int, score
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -115,7 +113,7 @@ func SaveMediaListEntryWithScoreRaw(mediaID int, status string, progress int, sc
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -146,7 +144,7 @@ func SaveMediaListEntryProgressVolume(mediaID int, status string, progressVolume
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -177,7 +175,7 @@ func SaveMediaListEntryWithRepeat(mediaID int, repeat int, authToken string) (bo
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -210,7 +208,7 @@ func SaveMediaListEntryPrivate(mediaID int, private bool, authToken string) (boo
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -243,7 +241,7 @@ func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) (bo
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -258,7 +256,7 @@ id: Int
 The id of the media list entry to delete
 */
 func DeleteMediaListEntry(ID int, authToken string) (bool, error) {
-	u := anilist.MediaListEntry{}
+	u := MediaListEntry{}
 	_, err := u.GetUserMediaList(ID, authToken)
 	if err != nil {
 		return false, err
@@ -277,7 +275,7 @@ func DeleteMediaListEntry(ID int, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
