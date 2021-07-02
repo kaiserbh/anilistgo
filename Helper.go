@@ -1,4 +1,4 @@
-package query
+package AniListGo
 
 import (
 	"bytes"

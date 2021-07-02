@@ -1,4 +1,4 @@
-package query
+package AniListGo
 
 import (
 	"encoding/json"
@@ -19,7 +19,6 @@ type PageInfo struct {
 	LastPage    int  `json:"lastPage"`
 	HasNextPage bool `json:"hasNextPage"`
 }
-
 
 // NewPage Create new NewMediaTrend Object
 func NewPage() *Page {

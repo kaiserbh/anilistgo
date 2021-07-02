@@ -1,10 +1,8 @@
-package mutation
+package AniListGo
 
 import (
 	"encoding/json"
 	"fmt"
-
-	anilist "github.com/kaiserbh/anilistgo/anilist/query"
 )
 
 //UpdateUserAbout User's about/bio text.
@@ -22,7 +20,7 @@ func UpdateUserAbout(about string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -48,7 +46,7 @@ func UpdateUserTitleLanguage(titleLanguage string, authToken string) (bool, erro
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -73,7 +71,7 @@ func UpdateUserAdultContent(displayAdultContent bool, authToken string) (bool, e
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -99,7 +97,7 @@ func UpdateUserAiringNotification(airingNotifications bool, authToken string) (b
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -124,7 +122,7 @@ func UpdateUserScoreFormat(scoreFormat string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -149,7 +147,7 @@ func UpdateUserRowOrder(rowOrder string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -174,7 +172,7 @@ func UpdateUserProfileColor(profileColor string, authToken string) (bool, error)
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -245,7 +243,7 @@ func UpdateUserNotificationOption(notificationType string, enabled bool, authTok
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -276,7 +274,7 @@ func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -284,8 +282,8 @@ func UpdateUserAnimeListOptionSectionOrder(sectionOrder string, authToken string
 	return true, nil
 }
 
-// UpdateUserAnimeListOptionsplitCompletedSectionByFormat If the completed sections of the list should be separated by format
-func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authToken string) (bool, error) {
+// UpdateUserAnimeListOptionSplitCompletedSectionByFormat If the completed sections of the list should be separated by format
+func UpdateUserAnimeListOptionSplitCompletedSectionByFormat(format bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{splitCompletedSectionByFormat:%v}) {
@@ -307,7 +305,7 @@ func UpdateUserAnimeListOptionsplitCompletedSectionByFormat(format bool, authTok
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -338,7 +336,7 @@ func UpdateUserAnimeListOptionsCustomLists(customList string, authToken string) 
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -369,7 +367,7 @@ func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) (bool, err
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -400,7 +398,7 @@ func UpdateUserAdvancedScoring(name string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -433,7 +431,7 @@ func UpdateUserMangaListOptionsSectionOrder(sectionOrder string, authToken strin
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -464,7 +462,7 @@ func UpdateUserMangaListOptionSplitCompletedSectionByFormat(format bool, authTok
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -495,7 +493,7 @@ func UpdateUserMangaListOptionsCustomLists(customList string, authToken string) 
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -518,7 +516,7 @@ func DeleteCustomListManga(customList string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -541,7 +539,7 @@ func DeleteCustomLisAnime(customList string, authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
@@ -568,7 +566,7 @@ func ResetTheme(authToken string) (bool, error) {
 		return false, err
 	}
 
-	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	_, err = PostRequestAuth(jsonValue, authToken)
 	if err != nil {
 		return false, err
 	}
