@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -90,6 +90,12 @@ const staffQuery = `id,
 					favourites,
 					modNotes,
 				`
+
+// NewStaff Create new Staff Object
+func NewStaff() *Staff {
+	s := Staff{}
+	return &s
+}
 
 // FilterStaffByID Search Anilist Staff by it's ID
 func (s *Staff) FilterStaffByID(id int) (bool, error) {

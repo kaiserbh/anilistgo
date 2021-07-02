@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -153,6 +153,7 @@ type Tags struct {
 // Relations Object I believe relations to the anime/manga
 type Relations struct {
 	Edges []Edges `json:"edges"`
+	Nodes []Node  `json:"nodes"`
 }
 
 // Edges some data have edges so need a different one.
@@ -300,6 +301,9 @@ const mediaQuery = `id,
 				  edges {
 					id,
 				  },
+				  nodes {
+						id,
+					},
 				},
 				characters {
 				  edges {
@@ -529,7 +533,7 @@ func (m *Media) FilterByTitle(title string) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
-			Media(search: "%v") {
+			Media(search: "%v" type: ANIME ) {
 				%s
 			  }
 		}

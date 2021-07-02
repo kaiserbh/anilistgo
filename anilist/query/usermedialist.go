@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -16,6 +16,12 @@ type MediaListEntry struct {
 	ProgressVolumes int64  `json:"progressVolumes"`
 	Media           Media  `json:"media"`
 	User            User   `json:"user"`
+}
+
+// NewMediaListQuery Create new MediaListEntry Object
+func NewMediaListQuery() *MediaListEntry {
+	m := MediaListEntry{}
+	return &m
 }
 
 // GetUserMediaList will return the authenticated user media list

@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -20,7 +20,14 @@ type PageInfo struct {
 	HasNextPage bool `json:"hasNextPage"`
 }
 
-// PaginationByTitle  search Anilist Media by title returns arrayList of Media objects, and pageIn for takes title string, page (which page to look for), PerPage The amount of entries per page, max 50
+
+// NewPage Create new NewMediaTrend Object
+func NewPage() *Page {
+	p := Page{}
+	return &p
+}
+
+// PaginationByTitle  search Anilist Media by title returns arrayList of Media objects, and pageInfor takes title string, page (which page to look for), PerPage The amount of entries per page, max 50
 func (p *Page) PaginationByTitle(title string, page int, perPage int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`

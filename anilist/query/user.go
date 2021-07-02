@@ -1,4 +1,4 @@
-package anilist
+package query
 
 import (
 	"encoding/json"
@@ -339,6 +339,12 @@ const userQuery = `
 					moderatorStatus,
 					updatedAt,
 					`
+
+// NewUserQuery Create new User Object
+func NewUserQuery() *User {
+	u := User{}
+	return &u
+}
 
 // FilterUserByName Search Anilist User by it's userName
 func (u *User) FilterUserByName(name string) (bool, error) {
