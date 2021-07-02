@@ -20,8 +20,8 @@ type PageInfo struct {
 	HasNextPage bool `json:"hasNextPage"`
 }
 
-// NewPage Create new NewMediaTrend Object
-func NewPage() *Page {
+// NewPageQuery Create new NewMediaTrend Object
+func NewPageQuery() *Page {
 	p := Page{}
 	return &p
 }
@@ -44,7 +44,7 @@ func (p *Page) PaginationByTitle(title string, page int, perPage int) (bool, err
 			}
 		}
 	}
-	`, page, perPage, title, mediaQuery),
+	`, page, perPage, title, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)

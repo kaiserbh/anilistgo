@@ -241,8 +241,8 @@ type StatusDistribution struct {
 // url constant of Anilist Api
 const url = "https://graphql.anilist.co"
 
-// Media Query Constant what will be posted to the api and send as post request
-const mediaQuery = `id,
+// MediaQuery Query Constant what will be posted to the api and send as post request
+const MediaQuery = `id,
 				idMal,
 				title {
 				  romaji,
@@ -371,8 +371,8 @@ const mediaQuery = `id,
 				  isRecommendationBlocked,
 				  modNotes,`
 
-// NewMedia creates Media objects
-func NewMedia() *Media {
+// NewMediaQuery creates Media objects
+func NewMediaQuery() *Media {
 	m := Media{}
 
 	return &m
@@ -387,7 +387,7 @@ func (m *Media) FilterByID(id int) (bool, error) {
 				%s
 			  }
 		}
-	`, id, mediaQuery),
+	`, id, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -417,7 +417,7 @@ func (m *Media) FilterByMalID(malID int) (bool, error) {
 				%s
 			  }
 		}
-	`, malID, mediaQuery),
+	`, malID, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -447,7 +447,7 @@ func (m *Media) FilterByStartDate(date int32) (bool, error) {
 				%s
 			  }
 		}
-	`, date, mediaQuery),
+	`, date, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -477,7 +477,7 @@ func (m *Media) FilterByEndDate(date int32) (bool, error) {
 				%s
 			  }
 		}
-	`, date, mediaQuery),
+	`, date, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -507,7 +507,7 @@ func (m *Media) FilterBySeason(season string) (bool, error) {
 				%s
 			  }
 		}
-	`, season, mediaQuery),
+	`, season, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -537,7 +537,7 @@ func (m *Media) FilterByTitle(title string) (bool, error) {
 				%s
 			  }
 		}
-	`, title, mediaQuery),
+	`, title, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -567,7 +567,7 @@ func (m *Media) FilterAnimeByID(id int) (bool, error) {
 				%s
 			  }
 		}
-	`, id, mediaQuery),
+	`, id, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -597,7 +597,7 @@ func (m *Media) FilterMangaByID(id int) (bool, error) {
 				%s
 			  }
 		}
-	`, id, mediaQuery),
+	`, id, MediaQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)

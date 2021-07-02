@@ -49,7 +49,7 @@ type CharacterMedia struct {
 	Edges []Edges `json:"edges"`
 }
 
-const staffQuery = `id,
+const StaffQuery = `id,
 					name {
 						first,
 						last,
@@ -91,8 +91,8 @@ const staffQuery = `id,
 					modNotes,
 				`
 
-// NewStaff Create new Staff Object
-func NewStaff() *Staff {
+// NewStaffQuery Create new Staff Object
+func NewStaffQuery() *Staff {
 	s := Staff{}
 	return &s
 }
@@ -106,7 +106,7 @@ func (s *Staff) FilterStaffByID(id int) (bool, error) {
 				%s
 			  }
 		}
-	`, id, staffQuery),
+	`, id, StaffQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
@@ -136,7 +136,7 @@ func (s *Staff) FilterStaffByName(name string) (bool, error) {
 				%s
 			  }
 		}
-	`, name, staffQuery),
+	`, name, StaffQuery),
 	}
 
 	jsonValue, err := json.Marshal(jsonData)
