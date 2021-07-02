@@ -18,7 +18,7 @@ go get github.com/kaiserbh/anilistgo
 ### Character Query
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 c := query.Character{}
 
 ok, err := c.FilterCharacterByName("Nezuko")
@@ -32,7 +32,7 @@ if ok{
 }
 	
 // can do this as well without ok variable.
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 c := query.Character{}
 
 _, err := c.FilterCharacterByName("Nezuko-channnnnn")
@@ -46,7 +46,7 @@ fmt.Printf("%+v\n", c)
 ### User Query
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 u := query.User{}
 
 ok, err : = u.FilterUserByID(197690)
@@ -60,7 +60,7 @@ fmt.Printf("%+v\n", u)
 }
 
 // can do this as well without ok variable.
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 c := query.Character{}
 
 _, err : = u.FilterUserByID(197690)
@@ -74,7 +74,7 @@ fmt.Printf("%+v\n", u)
 ### Media Query
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 m := query.Media{}
 
 ok, err := m.FilterByID(1)
@@ -88,7 +88,7 @@ fmt.Printf("%+v\n", m)
 }
 
 // can do this as well without ok variable.
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 m := query.Media{}
 
 _, err := m.FilterByID(1)
@@ -103,7 +103,7 @@ fmt.Printf("%+v\n", u)
 ### Page Query
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 p := query.Page{}
 
 ok, err := p.PaginationByTitle("Attack on Titan", 1, 10) // takes title, page number, and per page amount
@@ -120,7 +120,7 @@ fmt.Printf("%+v\n", p)
 ### Mediatrend
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 mt := query.MediaTrend{}
 ok,err := mt.SearchByMediaID(1)
 if err != nil{
@@ -135,7 +135,7 @@ if ok{
 ### Staff query
 
 ```go
-import query "anilistGo/anilist/query"
+import "github.com/kaiserbh/anilistgo"
 s := query.Staff{}
 
 ok, err := s.FilterStaffByName("Hideaki Sorachi")
@@ -153,7 +153,7 @@ if ok{
 ### UserMediaList requires Auth/Token
 
 ```go
-import mutation "anilistGo/anilist/mutation"
+import  "github.com/kaiserbh/anilistgo"
 authKey := "long ass string"
 ok, err := mutation.SaveMediaListEntry(1, "CURRENT", 0, authKey)
 if err != nil{
@@ -167,7 +167,7 @@ if ok{
 ### updateUser requires Auth/Token
 
 ```go
-import mutation "anilistGo/anilist/mutation"
+import "github.com/kaiserbh/anilistgo"
 authKey := "long ass string"
 
 ok, err := mutation.UpdateUserAbout("uwu I love anime", authKey)
