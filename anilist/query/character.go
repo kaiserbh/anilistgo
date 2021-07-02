@@ -36,7 +36,7 @@ const characterQuery = `id,
 				`
 
 // FilterCharacterByName filters the characters from aniList by search query or name of the character.
-func (c *Character) FilterCharacterByName(search string) (error, bool) {
+func (c *Character) FilterCharacterByName(search string) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -49,24 +49,24 @@ func (c *Character) FilterCharacterByName(search string) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &c); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
 
 // FilterCharacterID search the character by it's ID
-func (c *Character) FilterCharacterID(ID int) (error, bool) {
+func (c *Character) FilterCharacterID(ID int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -79,19 +79,19 @@ func (c *Character) FilterCharacterID(ID int) (error, bool) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &c); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 
 }
