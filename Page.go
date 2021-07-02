@@ -57,7 +57,7 @@ func (p *Page) PaginationByTitle(title string, page int, perPage int) (bool, err
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanPageJSON(request)
 	if err := json.Unmarshal(cleanData, &p); err != nil {
 		return false, err
 	}
