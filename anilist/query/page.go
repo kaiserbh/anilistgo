@@ -21,7 +21,7 @@ type PageInfo struct {
 }
 
 // PaginationByTitle  search Anilist Media by title returns arrayList of Media objects, and pageIn for takes title string, page (which page to look for), PerPage The amount of entries per page, max 50
-func (p *Page) PaginationByTitle(title string, page int, perPage int) (error, bool) {
+func (p *Page) PaginationByTitle(title string, page int, perPage int) (bool, error) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ Page(page: %d, perPage: %d) {
@@ -43,18 +43,18 @@ func (p *Page) PaginationByTitle(title string, page int, perPage int) (error, bo
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	request, err := PostRequest(jsonValue)
 	if err != nil {
-		return err, false
+		return false, err
 	}
 
 	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &p); err != nil {
-		return err, false
+		return false, err
 	}
 
-	return nil, true
+	return true, nil
 }
