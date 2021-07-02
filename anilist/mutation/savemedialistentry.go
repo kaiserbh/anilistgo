@@ -35,7 +35,7 @@ import (
 	progress: Int
 	The amount of episodes/chapters consumed by the user
 */
-func SaveMediaListEntry(mediaID int, status string, progress int, authToken string) {
+func SaveMediaListEntry(mediaID int, status string, progress int, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, status:%s, progress:%d){
@@ -49,10 +49,15 @@ func SaveMediaListEntry(mediaID int, status string, progress int, authToken stri
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryWithScore Create or update a media list entry
@@ -60,7 +65,7 @@ func SaveMediaListEntry(mediaID int, status string, progress int, authToken stri
 score: Float
 The score of the media in the user's chosen scoring method
 */
-func SaveMediaListEntryWithScore(mediaID int, status string, progress int, score float64, authToken string) {
+func SaveMediaListEntryWithScore(mediaID int, status string, progress int, score float64, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, status:%s, progress:%d, score:%f){
@@ -75,10 +80,15 @@ func SaveMediaListEntryWithScore(mediaID int, status string, progress int, score
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryWithScoreRaw Create or update a media list entry
@@ -86,7 +96,7 @@ func SaveMediaListEntryWithScore(mediaID int, status string, progress int, score
 scoreRaw: Int
 The score of the media in 100 point
 */
-func SaveMediaListEntryWithScoreRaw(mediaID int, status string, progress int, score int, authToken string) {
+func SaveMediaListEntryWithScoreRaw(mediaID int, status string, progress int, score int, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, status:%s, progress:%d, score:%d){
@@ -101,10 +111,15 @@ func SaveMediaListEntryWithScoreRaw(mediaID int, status string, progress int, sc
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryProgressVolume  Create or update a media list entry
@@ -112,7 +127,7 @@ func SaveMediaListEntryWithScoreRaw(mediaID int, status string, progress int, sc
 progressVolumes: Int
 The amount of volumes read by the user
 */
-func SaveMediaListEntryProgressVolume(mediaID int, status string, progressVolumes int, authToken string) {
+func SaveMediaListEntryProgressVolume(mediaID int, status string, progressVolumes int, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, status:%s, progressVolumes:%d){
@@ -127,10 +142,15 @@ func SaveMediaListEntryProgressVolume(mediaID int, status string, progressVolume
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryWithRepeat Create or update a media list entry
@@ -138,7 +158,7 @@ func SaveMediaListEntryProgressVolume(mediaID int, status string, progressVolume
 repeat: Int
 The amount of times the user has rewatched/read the media
 */
-func SaveMediaListEntryWithRepeat(mediaID int, repeat int, authToken string) {
+func SaveMediaListEntryWithRepeat(mediaID int, repeat int, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, repeat:%d){
@@ -153,10 +173,15 @@ func SaveMediaListEntryWithRepeat(mediaID int, repeat int, authToken string) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryPrivate Create or update a media list entry
@@ -165,7 +190,7 @@ private: Boolean
 If the entry should only be visible to authenticated user
 
 */
-func SaveMediaListEntryPrivate(mediaID int, private bool, authToken string) {
+func SaveMediaListEntryPrivate(mediaID int, private bool, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, private:%v){
@@ -181,10 +206,15 @@ func SaveMediaListEntryPrivate(mediaID int, private bool, authToken string) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // SaveMediaListEntryAddNotes Create or update a media list entry
@@ -192,7 +222,7 @@ func SaveMediaListEntryPrivate(mediaID int, private bool, authToken string) {
 notes: String
 Text notes add notes to the media
 */
-func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) {
+func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) (error, bool) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        SaveMediaListEntry( mediaId:%v, notes:"%v"){
@@ -209,10 +239,15 @@ func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
 
 // DeleteMediaListEntry Delete a media list entry
@@ -221,7 +256,7 @@ func SaveMediaListEntryAddNotes(mediaID int, notes string, authToken string) {
 id: Int
 The id of the media list entry to delete
 */
-func DeleteMediaListEntry(ID int, authToken string) {
+func DeleteMediaListEntry(ID int, authToken string) (error, bool) {
 	u := anilist.MediaListEntry{}
 	u.GetUserMediaList(ID, authToken)
 
@@ -235,8 +270,13 @@ func DeleteMediaListEntry(ID int, authToken string) {
 
 	jsonValue, err := json.Marshal(query)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
+	_, err = anilist.PostRequestAuth(jsonValue, authToken)
+	if err != nil {
+		return err, false
+	}
+
+	return nil, true
 }
