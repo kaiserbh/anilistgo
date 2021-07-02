@@ -109,7 +109,7 @@ func (m *MediaTrend) SearchByMediaID(id int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanMediaTrendPageJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -139,7 +139,7 @@ func (m *MediaTrend) FilterByTrendingAmount(trending int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanMediaTrendPageJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -169,7 +169,7 @@ func (m *MediaTrend) FilterByTrendingAverageScore(averageScore int) (bool, error
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanMediaTrendPageJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -199,7 +199,7 @@ func (m *MediaTrend) FilterByPopularity(popularity int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanMediaTrendPageJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -229,7 +229,7 @@ func (m *MediaTrend) FilterByEpisode(episode int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := CleanMediaTrendPageJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
