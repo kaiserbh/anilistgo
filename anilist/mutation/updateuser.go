@@ -30,7 +30,8 @@ func UpdateUserAbout(about string, authToken string) (bool, error) {
 	return true, nil
 }
 
-//UpdateUserTitleLanguage User's title language/ The language the user wants to see media titles in such as ROMAJI, ENGLISH, NATIVE, ROMAJI_STYLISED, ENGLISH_STYLISED, NATIVE_STYLISED
+//UpdateUserTitleLanguage User's title language; The language the user wants to see media titles in such as
+//ROMAJI, ENGLISH, NATIVE, ROMAJI_STYLISED, ENGLISH_STYLISED, NATIVE_STYLISED
 func UpdateUserTitleLanguage(titleLanguage string, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
@@ -182,50 +183,49 @@ func UpdateUserProfileColor(profileColor string, authToken string) (bool, error)
 }
 
 // UpdateUserNotificationOption The user's Notification options
-/*func
 
-ACTIVITY_MESSAGE
-A user has sent you message
+//ACTIVITY_MESSAGE
+//A user has sent you message
+//
+//ACTIVITY_REPLY
+//A user has replied to your activity
+//
+//FOLLOWING
+//A user has followed you
+//
+//ACTIVITY_MENTION
+//A user has mentioned you in their activity
+//
+//THREAD_COMMENT_MENTION
+//A user has mentioned you in a forum comment
+//
+//THREAD_SUBSCRIBED
+//A user has commented in one of your subscribed forum threads
+//
+//THREAD_COMMENT_REPLY
+//A user has replied to your forum comment
+//
+//AIRING
+//An anime you are currently watching has aired
+//
+//ACTIVITY_LIKE
+//A user has liked your activity
+//
+//ACTIVITY_REPLY_LIKE
+//A user has liked your activity reply
+//
+//THREAD_LIKE
+//A user has liked your forum thread
+//
+//THREAD_COMMENT_LIKE
+//A user has liked your forum comment
+//
+//ACTIVITY_REPLY_SUBSCRIBED
+//A user has replied to activity you have also replied to
+//
+//RELATED_MEDIA_ADDITION
+//A new anime or manga has been added to the site where its related media is on the user's list
 
-ACTIVITY_REPLY
-A user has replied to your activity
-
-FOLLOWING
-A user has followed you
-
-ACTIVITY_MENTION
-A user has mentioned you in their activity
-
-THREAD_COMMENT_MENTION
-A user has mentioned you in a forum comment
-
-THREAD_SUBSCRIBED
-A user has commented in one of your subscribed forum threads
-
-THREAD_COMMENT_REPLY
-A user has replied to your forum comment
-
-AIRING
-An anime you are currently watching has aired
-
-ACTIVITY_LIKE
-A user has liked your activity
-
-ACTIVITY_REPLY_LIKE
-A user has liked your activity reply
-
-THREAD_LIKE
-A user has liked your forum thread
-
-THREAD_COMMENT_LIKE
-A user has liked your forum comment
-
-ACTIVITY_REPLY_SUBSCRIBED
-A user has replied to activity you have also replied to
-
-RELATED_MEDIA_ADDITION
-A new anime or manga has been added to the site where its related media is on the user's list
-*/
 func UpdateUserNotificationOption(notificationType string, enabled bool, authToken string) (bool, error) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
