@@ -400,7 +400,7 @@ func (m *Media) FilterByID(id int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -430,7 +430,7 @@ func (m *Media) FilterByMalID(malID int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -460,7 +460,7 @@ func (m *Media) FilterByStartDate(date int32) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -490,7 +490,7 @@ func (m *Media) FilterByEndDate(date int32) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -520,7 +520,7 @@ func (m *Media) FilterBySeason(season string) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -550,7 +550,7 @@ func (m *Media) FilterByTitle(title string) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -580,7 +580,7 @@ func (m *Media) FilterAnimeByID(id int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
@@ -610,7 +610,7 @@ func (m *Media) FilterMangaByID(id int) (bool, error) {
 		return false, err
 	}
 
-	cleanData := CleanCharacterJSON(request)
+	cleanData := cleanMediaJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
 		return false, err
 	}
