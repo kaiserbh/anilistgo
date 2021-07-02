@@ -316,8 +316,8 @@ func UpdateUserAdvancedScoringEnabled(scoring bool, authToken string) {
 	fmt.Println(string(anilist.PostRequestAuth(jsonValue, authToken)))
 }
 
-// UpdateUseradvancedScoring The names of the user's advanced scoring sections
-func UpdateUseradvancedScoring(name string, authToken string) {
+// UpdateUserAdvancedScoring The names of the user's advanced scoring sections
+func UpdateUserAdvancedScoring(name string, authToken string) {
 	query := map[string]string{
 		"query": fmt.Sprintf(`mutation{
 	        UpdateUser(animeListOptions:{advancedScoring:"%v"}) {
