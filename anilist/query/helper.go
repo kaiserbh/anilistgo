@@ -3,6 +3,8 @@ package anilist
 import (
 	"bytes"
 	"fmt"
+	log "github.com/sirupsen/logrus"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"regexp"
@@ -11,32 +13,38 @@ import (
 
 // regex Helper
 
-// PostRequest sends POST request that takes []byte as parameter then returns back httml Body as []byte
-func PostRequest(jsonValue []byte) []byte {
+// PostRequest sends POST request that takes []byte as parameter then returns back html Body as []byte
+func PostRequest(jsonValue []byte) ([]byte, error) {
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
-		fmt.Println("Error: ", err)
+		return nil, err
 	}
 
-	// Check if the respone is 200 if not then media is not found or server might be down.
+	// Check if the response is 200 if not then media is not found or server might be down.
 	if resp.StatusCode != 200 {
-		fmt.Println("Media Not Found got Error with statusCode: ", resp.StatusCode)
-		fmt.Println(resp.Body)
+		log.Error("Media Not Found got Error with statusCode: ", resp.StatusCode)
+		log.Warn(resp.Body)
+		return nil, nil
 	}
 
 	if resp.Body != nil {
-		defer resp.Body.Close()
+		defer func(Body io.ReadCloser) {
+			err := Body.Close()
+			if err != nil {
+				return
+			}
+		}(resp.Body)
 	}
 
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		return nil, err
 	}
 
-	return data
+	return data, nil
 }
 
-// PostRequestAuth Request with token and auth token can be retrived from anilist
+// PostRequestAuth Request with token and auth token can be retrieved from anilist
 func PostRequestAuth(jsonValue []byte, authKey string) []byte {
 	var request *http.Request
 	var err error
