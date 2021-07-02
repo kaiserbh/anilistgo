@@ -1,4 +1,4 @@
-package AniListGo
+package anilistgo
 
 import (
 	"bytes"
