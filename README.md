@@ -1,6 +1,6 @@
 # AniList Go Wrapper
 
-Most of the functionality is completed for querying media from Anilist and Mutation such as adding media to the list or removing it. However there are still some left such as Threads, Reviews.
+Most of the functionality is good to *go* for querying media from Anilist and Mutation such as adding media to the list or removing it. However there are still some left such as Threads, Reviews.
 
 Anilist is an online manga/anime database and social networking service
 More information on Anilist can be found here : [anilist](https://anilist.co/home)
@@ -20,8 +20,27 @@ go get github.com/kaiserbh/anilistgo
 ```go
 import query "anilistGo/anilist/query"
 c := query.Character{}
-	c.FilterCharacterByName("Nezuko")
-    fmt.Printf("%+v\n", c)
+
+ok, err := c.FilterCharacterByName("Nezuko")
+if err != nil{
+	panic(err)
+}
+
+// ok is optional basically a boolean for further use cases.
+if ok{ 
+	fmt.Printf("%+v\n", c)
+}
+	
+// can do this as well without ok variable.
+import query "anilistGo/anilist/query"
+c := query.Character{}
+
+_, err := c.FilterCharacterByName("Nezuko-channnnnn")
+if err != nil{
+	panic(err)
+}
+
+fmt.Printf("%+v\n", c)
 ```
 
 ### User Query
@@ -29,8 +48,27 @@ c := query.Character{}
 ```go
 import query "anilistGo/anilist/query"
 u := query.User{}
-	u.FilterUserByID(197690)
-	fmt.Printf("%+v\n", u)
+
+ok, err : = u.FilterUserByID(197690)
+if err != nil{
+	panic(err)
+}
+
+// ok is optional basically a boolean for further use cases.
+if ok{
+fmt.Printf("%+v\n", u)
+}
+
+// can do this as well without ok variable.
+import query "anilistGo/anilist/query"
+c := query.Character{}
+
+_, err : = u.FilterUserByID(197690)
+if err != nil{
+	panic(err)
+}
+
+fmt.Printf("%+v\n", u)
 ```
 
 ### Media Query
@@ -38,8 +76,28 @@ u := query.User{}
 ```go
 import query "anilistGo/anilist/query"
 m := query.Media{}
-	m.FilterByID(1)
-    fmt.Printf("%+v\n", m)
+
+ok, err := m.FilterByID(1)
+if err != nil{
+	panic(err)
+}
+
+// ok is optional basically a boolean for further use cases.
+if ok{
+fmt.Printf("%+v\n", m)
+}
+
+// can do this as well without ok variable.
+import query "anilistGo/anilist/query"
+m := query.Media{}
+
+_, err := m.FilterByID(1)
+if err != nil{
+	panic(err)
+}
+
+fmt.Printf("%+v\n", u)
+  
 ```
 
 ### Page Query
@@ -47,8 +105,16 @@ m := query.Media{}
 ```go
 import query "anilistGo/anilist/query"
 p := query.Page{}
-	p.PaginationByTitle("Attack on Titan", 1, 10) // takes title, page number, and per page amount
-    fmt.Printf("%+v\n", p)
+
+ok, err := p.PaginationByTitle("Attack on Titan", 1, 10) // takes title, page number, and per page amount
+if err != nil{
+	panic(err)
+}
+
+// ok is optional basically a boolean for further use cases.
+if ok{
+fmt.Printf("%+v\n", p)
+}
 ```
 
 ### Mediatrend
@@ -56,8 +122,14 @@ p := query.Page{}
 ```go
 import query "anilistGo/anilist/query"
 mt := query.MediaTrend{}
-	mt.SearchByMediaID(1)
+ok,err := mt.SearchByMediaID(1)
+if err != nil{
+	panic(err)
+}
+if ok{
     fmt.Printf("%+v\n", mt)
+}
+  
 ```
 
 ### Staff query
@@ -65,8 +137,15 @@ mt := query.MediaTrend{}
 ```go
 import query "anilistGo/anilist/query"
 s := query.Staff{}
-	s.FilterStaffByName("Hideaki Sorachi")
-    fmt.Printf("%+v\n", s)
+
+ok, err := s.FilterStaffByName("Hideaki Sorachi")
+if err  != nil {
+	panic(err)
+}
+
+if ok{
+	fmt.Printf("%+v\n", s)
+}
 ```
 
 ## Mutation
@@ -76,7 +155,13 @@ s := query.Staff{}
 ```go
 import mutation "anilistGo/anilist/mutation"
 authKey := "long ass string"
-mutation.SaveMediaListEntry(1, "CURRENT", 0, authKey)
+ok, err := mutation.SaveMediaListEntry(1, "CURRENT", 0, authKey)
+if err != nil{
+	panic(err)
+}
+if ok{
+	log.Info("succesfully updated uwu")
+}
 ```
 
 ### updateUser requires Auth/Token
@@ -84,7 +169,14 @@ mutation.SaveMediaListEntry(1, "CURRENT", 0, authKey)
 ```go
 import mutation "anilistGo/anilist/mutation"
 authKey := "long ass string"
-mutation.UpdateUserAbout("uwu I love anime", authKey)
+
+ok, err := mutation.UpdateUserAbout("uwu I love anime", authKey)
+if err != nil{
+    panic(err)
+}
+if ok{
+    log.Info("succesfully updated uwu")
+}
 ```
 
 # Notes
