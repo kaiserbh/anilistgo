@@ -375,7 +375,7 @@ func NewMedia() *Media {
 }
 
 // FilterByID Search Anilist Media by it's ID
-func (m *Media) FilterByID(id int) {
+func (m *Media) FilterByID(id int) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -388,19 +388,25 @@ func (m *Media) FilterByID(id int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterByMalID search Anilist Media by it's MAL(MyAnimeList) ID
-func (m *Media) FilterByMalID(malID int) {
+func (m *Media) FilterByMalID(malID int) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -413,19 +419,25 @@ func (m *Media) FilterByMalID(malID int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterByStartDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
-func (m *Media) FilterByStartDate(date int32) {
+func (m *Media) FilterByStartDate(date int32) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -438,19 +450,25 @@ func (m *Media) FilterByStartDate(date int32) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterByEndDate search Anilist Media by start Date of the show 8 digit 2013-04-08 == 20130408
-func (m *Media) FilterByEndDate(date int32) {
+func (m *Media) FilterByEndDate(date int32) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -463,19 +481,25 @@ func (m *Media) FilterByEndDate(date int32) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterBySeason search Anilist Media by Season (WINTER, SPRING, SUMMER, FALL)
-func (m *Media) FilterBySeason(season string) {
+func (m *Media) FilterBySeason(season string) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -488,19 +512,24 @@ func (m *Media) FilterBySeason(season string) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
 
+	return nil, true
 }
 
 // FilterByTitle search Anilist Media by title of the anime or manga
-func (m *Media) FilterByTitle(title string) {
+func (m *Media) FilterByTitle(title string) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -513,19 +542,25 @@ func (m *Media) FilterByTitle(title string) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterAnimeByID search Anilist Anime only type: ANIME is hard-coded in the query
-func (m *Media) FilterAnimeByID(id int) {
+func (m *Media) FilterAnimeByID(id int) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -538,19 +573,25 @@ func (m *Media) FilterAnimeByID(id int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
 
 // FilterMangaByID search Anilist Manga type: MANGA is hard-coded in the query
-func (m *Media) FilterMangaByID(id int) {
+func (m *Media) FilterMangaByID(id int) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -563,13 +604,19 @@ func (m *Media) FilterMangaByID(id int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := cleanMediaJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
 
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &m); err != nil {
-		panic(err)
+		return err, false
 	}
+
+	return nil, true
 
 }
