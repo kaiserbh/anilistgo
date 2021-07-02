@@ -2,7 +2,6 @@ package anilist
 
 import (
 	"bytes"
-	"fmt"
 	log "github.com/sirupsen/logrus"
 	"io"
 	"io/ioutil"
@@ -45,7 +44,7 @@ func PostRequest(jsonValue []byte) ([]byte, error) {
 }
 
 // PostRequestAuth Request with token and auth token can be retrieved from anilist
-func PostRequestAuth(jsonValue []byte, authKey string) []byte {
+func PostRequestAuth(jsonValue []byte, authKey string) ([]byte, error) {
 	var request *http.Request
 	var err error
 
@@ -58,10 +57,13 @@ func PostRequestAuth(jsonValue []byte, authKey string) []byte {
 		body := bytes.NewBuffer(jsonValue)
 		request, err = http.NewRequest("POST", url, body)
 		if err != nil {
-			fmt.Println(err)
+			return nil, err
 		}
 	} else {
 		request, err = http.NewRequest("application/json", url, nil)
+		if err != nil {
+			return nil, err
+		}
 	}
 	request.Header.Set("Authorization", "Bearer "+authKey)
 	request.Header.Set("Accept", "application/json")
@@ -69,20 +71,19 @@ func PostRequestAuth(jsonValue []byte, authKey string) []byte {
 
 	resp, err := client.Do(request)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		return nil, err
 	}
 
 	if resp.StatusCode != 200 {
-		fmt.Println("Error: ", resp.Body)
-	} else {
-		fmt.Println(" ------------ SUCCESS ------------")
+		log.Error("StatusCode 200: ", resp.Body)
+		return nil, nil
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		return nil, err
 	}
-	return body
+	return body, nil
 }
 
 // CleanJSON cleans the html body by removing unnecessary html tags using regex.
@@ -109,7 +110,7 @@ func cleanMediaJSON(str []byte) []byte {
 	return lastItr
 }
 
-// CleanPageJSON cleans the hmtl body
+// CleanPageJSON cleans the html body
 func CleanPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Page":|}}$`)
 	substitution := ""
@@ -118,7 +119,7 @@ func CleanPageJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanMediaTrendPageJSON cleans the hmtl
+// CleanMediaTrendPageJSON cleans the html
 func CleanMediaTrendPageJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"MediaTrend":|}}$`)
 	substitution := ""
@@ -127,7 +128,7 @@ func CleanMediaTrendPageJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanStaffJSON cleans the hmtl body
+// CleanStaffJSON cleans the html body
 func CleanStaffJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Staff":|}}$`)
 	substitution := ""
@@ -136,7 +137,7 @@ func CleanStaffJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanCharacterJSON cleans the hmtl body
+// CleanCharacterJSON cleans the html body
 func CleanCharacterJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Character":|}}$`)
 	substitution := ""
@@ -145,7 +146,7 @@ func CleanCharacterJSON(str []byte) []byte {
 	return firstItr
 }
 
-// CleanUserJSON cleans the hmtl body
+// CleanUserJSON cleans the html body
 func CleanUserJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"User":|}}$`)
 	substitution := ""
