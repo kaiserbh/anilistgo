@@ -92,7 +92,7 @@ const staffQuery = `id,
 				`
 
 // FilterStaffByID Search Anilist Staff by it's ID
-func (s *Staff) FilterStaffByID(id int) {
+func (s *Staff) FilterStaffByID(id int) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -105,18 +105,24 @@ func (s *Staff) FilterStaffByID(id int) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := CleanStaffJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
+
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &s); err != nil {
-		panic(err)
+		return err, false
 	}
 
+	return nil, true
 }
 
 // FilterStaffByName Search Anilist Staff by it's ID
-func (s *Staff) FilterStaffByName(name string) {
+func (s *Staff) FilterStaffByName(name string) (error, bool) {
 	jsonData := map[string]string{
 		"query": fmt.Sprintf(`
 		{ 
@@ -129,12 +135,18 @@ func (s *Staff) FilterStaffByName(name string) {
 
 	jsonValue, err := json.Marshal(jsonData)
 	if err != nil {
-		panic(err)
+		return err, false
 	}
 
-	cleanData := CleanStaffJSON(PostRequest(jsonValue))
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return err, false
+	}
+
+	cleanData := CleanCharacterJSON(request)
 	if err := json.Unmarshal(cleanData, &s); err != nil {
-		panic(err)
+		return err, false
 	}
 
+	return nil, true
 }
