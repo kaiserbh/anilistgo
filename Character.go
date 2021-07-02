@@ -35,7 +35,7 @@ const characterQuery = `id,
 					modNotes,
 				`
 
-func newCharacterQuery() *Character {
+func NewCharacterQuery() *Character {
 	n := Character{}
 
 	return &n
