@@ -80,7 +80,7 @@ type Media struct {
 	// The staff who produced the media
 	Staff Staff `json:"staff"`
 	// The companies who produced the media
-	Studio Studio `json:"studio"`
+	Studios Studios `json:"studios"`
 	// If the media is marked as favourite by the current authenticated user
 	IsFavourite bool `json:"isFavourite"`
 	// If the media is intended only for 18+ adult audiences
@@ -166,8 +166,8 @@ type Characters struct {
 	Edges []Edges `json:"edges"`
 }
 
-// Studio studios that worked on the anime/manga (anime mostly)
-type Studio struct {
+// Studios studios that worked on the anime/manga (anime mostly)
+type Studios struct {
 	Edges []Edges `json:"edges"`
 }
 

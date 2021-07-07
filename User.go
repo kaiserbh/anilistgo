@@ -83,7 +83,7 @@ type Favourites struct {
 	Manga      Manga      `json:"manga"`
 	Characters Characters `json:"characters"`
 	Staff      StaffU     `json:"staff"`
-	Studios    Studio     `json:"studios"`
+	Studios    Studios    `json:"studios"`
 }
 
 // Anime id of use favourites
