@@ -1,4 +1,7 @@
 # AniList Go Wrapper
+[![Go Reference](https://pkg.go.dev/badge/github.com/kaiserbh/anilistgo.svg)](https://pkg.go.dev/github.com/kaiserbh/anilistgo)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kaiserbh/anilistgo)](https://goreportcard.com/report/github.com/kaiserbh/anilistgo)
+
 
 Most of the functionality is good to *go* for querying media from Anilist and Mutation such as adding media to the list or removing it. However there are still some left such as Threads, Reviews.
 
@@ -184,6 +187,4 @@ if ok{
 You will need auth token for some of the methods to work to get your own token feel free to use https://anilist.co/api/v2/oauth/authorize?client_id=4684&response_type=token
 
 # Docs
-
-Full
-[docs](https://github.com/KaiserBh/AniListGo/blob/master/docs/index.md)
+[Documentation](https://github.com/KaiserBh/AniListGo/blob/master/docs/index.md)
