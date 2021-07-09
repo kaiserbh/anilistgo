@@ -22,9 +22,9 @@ type Media struct {
 	// Description Short description of the media's story and characters
 	Description string `json:"description"`
 	// StartDate The first official release date of the media
-	StartDate StartDate `json:"startDate"`
+	StartDate FuzzyDate `json:"startDate"`
 	// EndDate The last official release date of the media
-	EndDate EndDate `json:"endDate"`
+	EndDate FuzzyDate `json:"endDate"`
 	// Season The season the media was initially released in (Winter Months December to February, SPRING Months March to May, SUMMER Months June to August and FALL Months September to November)
 	Season string `json:"season"`
 	// The season year the media was initially released in
@@ -72,34 +72,36 @@ type Media struct {
 	// The amount of user's who have favourited the media
 	Favourites int `json:"favourites"`
 	// List of tags that describes elements and themes of the media
-	Tags []Tags `json:"tags"`
+	Tags []MediaTag `json:"tags"`
 	// Other media in the same or connecting franchise
-	Relations Relations `json:"relations"`
+	Relations MediaConnection `json:"relations"`
 	// The characters in the media
-	Characters Characters `json:"characters"`
+	Characters CharacterConnection `json:"characters"`
 	// The staff who produced the media
-	Staff Staff `json:"staff"`
+	Staff StaffConnection `json:"staff"`
 	// The companies who produced the media
-	Studios Studios `json:"studios"`
+	Studios StudioConnection `json:"studios"`
 	// If the media is marked as favourite by the current authenticated user
 	IsFavourite bool `json:"isFavourite"`
 	// If the media is intended only for 18+ adult audiences
 	IsAdult bool `json:"isAdult"`
 	// The media's next episode airing schedule
-	NextAiringEpisode NextAiringEpisode `json:"nextAiringEpisode"`
+	NextAiringEpisode AiringSchedule `json:"nextAiringEpisode"`
 	// The media's entire airing schedule
-	AiringSchedule AiringSchedule `json:"airingSchedule"`
+	AiringSchedule AiringScheduleConnection `json:"airingSchedule"`
+	// Trends The media's daily trend stats
+	Trends MediaTrendConnection `json:"trends"`
 	// External links to another site related to the media
-	ExternalLinks []ExternalLinks `json:"externalLinks"`
+	ExternalLinks []MediaExternalLinks `json:"externalLinks"`
 	// Data and links to legal streaming episodes on external sites
-	StreamingEpisodes []StreamingEpisodes `json:"streamingEpisodes"`
+	StreamingEpisodes []MediaStreamingEpisode `json:"streamingEpisodes"`
 	// The ranking of the media in a particular time span and format compared to other media
-	Rankings []Rankings `json:"rankings"`
+	Rankings []MediaRank `json:"rankings"`
 	// User reviews of the media
-	Reviews Reviews `json:"reviews"`
+	Reviews Review `json:"reviews"`
 	// User recommendations for similar media
-	Recommendations Recommendations `json:"recommendations"`
-	Stats           Stats           `json:"stats"`
+	Recommendations RecommendationConnection `json:"recommendations"`
+	Stats           MediaStats               `json:"stats"`
 	// The url for the media page on the AniList website
 	SiteURL string `json:"siteUrl"`
 	// If the media should have forum thread automatically created for it on airing episode release
@@ -118,23 +120,11 @@ type Title struct {
 	UserPreferred string `json:"userPreferred"`
 }
 
-// StartDate object that have year month and day of the anime
-type StartDate struct {
-	Year  int `json:"year"`
-	Month int `json:"month"`
-	Day   int `json:"day"`
-}
-
-// EndDate object to store json and endDate of the anime
-type EndDate struct {
-	Year  int `json:"year"`
-	Month int `json:"month"`
-	Day   int `json:"day"`
-}
-
 // Trailer contains YouTube Unique code to the video.
 type Trailer struct {
-	ID string `json:"id"`
+	ID        string `json:"id"`
+	Site      string `json:"site"`
+	Thumbnail string `json:"thumbnail"`
 }
 
 // CoverImage of the anime ExtraLarge, Large, Medium, and Color for some reason.
@@ -145,97 +135,65 @@ type CoverImage struct {
 	Color      string `json:"color"`
 }
 
-// Tags object contains the ID for tags
-type Tags struct {
+// MediaTag A tag that describes a theme or element of the media
+type MediaTag struct {
+	// ID The id of the tag
 	ID int `json:"id"`
+	// Name The name of the tag
+	Name string `json:"name"`
+	// Description A general description of the tag
+	Description string `json:"description"`
+	// Category The categories of tags this tag belongs to
+	Category string `json:"category"`
+	// Rank The relevance ranking of the tag out of the 100 for this media
+	Rank int `json:"rank"`
+	// IsGeneralSpoiler If the tag could be a spoiler for any media
+	IsGeneralSpoiler bool `json:"isGeneralSpoiler"`
+	// IsMediaSpoiler If the tag is a spoiler for this media
+	IsMediaSpoiler bool `json:"isMediaSpoiler"`
+	// isAdult If the tag is only for adult 18+ media
+	IsAdult bool `json:"isAdult"`
 }
 
-// Relations Object I believe relations to the anime/manga
-type Relations struct {
-	Edges []Edges `json:"edges"`
-	Nodes []Node  `json:"nodes"`
+// MediaExternalLinks An external link to another site related to the media
+type MediaExternalLinks struct {
+	ID   int    `json:"id"`
+	Url  string `json:"url"`
+	Site string `json:"site"`
 }
 
-// Edges some data have edges so need a different one.
-type Edges struct {
-	ID int `json:"id"`
-}
-
-// Characters Characters ID must use Edges to call it and it's an array.
-type Characters struct {
-	Edges []Edges `json:"edges"`
-}
-
-// Studios studios that worked on the anime/manga (anime mostly)
-type Studios struct {
-	Edges []Edges `json:"edges"`
-}
-
-// NextAiringEpisode contains the ID of the anime episode?
-type NextAiringEpisode struct {
-	ID int `json:"id"`
-}
-
-// AiringSchedule Anime airing schedule if it's provided uses Edges and ID
-type AiringSchedule struct {
-	Edges []Edges `json:"edges"`
-}
-
-// ExternalLinks for the anime, uses ID
-type ExternalLinks struct {
-	ID int `json:"id"`
-}
-
-// StreamingEpisodes returns the Episode title, Thumbnail, URL to the streaming site, and the Site
-type StreamingEpisodes struct {
+// MediaStreamingEpisode Data and links to legal streaming episodes on external sites
+type MediaStreamingEpisode struct {
 	Title     string `json:"title"`
 	Thumbnail string `json:"thumbnail"`
 	URL       string `json:"url"`
 	Site      string `json:"site"`
 }
 
-// Rankings of the Anime ID
-type Rankings struct {
+// MediaRank The ranking of a media in a particular time span and format compared to other media
+type MediaRank struct {
+	//ID The id of the rank
 	ID int `json:"id"`
+	// Rank The numerical rank of the media
+	Rank int `json:"rank"`
+	// Type The type of ranking [RATED, POPULAR]
+	Type string `json:"type"`
+	// Format The format the media is ranked within [TV, TV_SHORT, MOVIE, SPECIAL, OVA, ONA, MUSIC, MANGA, NOVEL, ONE_SHOT]
+	Format string `json:"format"`
+	// Year The year the media is ranked within
+	Year int `json:"year"`
+	//Season The season the media is ranked within
+	Season string `json:"season"`
+	// AllTime If the ranking is based on all time instead of a season/year
+	AllTime bool `json:"allTime"`
+	// Context String that gives context to the ranking type and time span
+	Context string `json:"context"`
 }
 
-// Reviews If the authenticated user have made review for it I believe.
-type Reviews struct {
-	Edges []RecroRevEdges `json:"edges"`
-}
-
-// RecroRevEdges (temporaty name type find a better name for different edges :( )) Node Object nested from Media
-type RecroRevEdges struct {
-	Node Node `json:"node"`
-}
-
-// Recommendations of the similar anime.
-type Recommendations struct {
-	Edges []RecroRevEdges `json:"edges"`
-	Node  Node            `json:"node"`
-}
-
-// Node that contains the ID
-type Node struct {
-	ID int `json:"id"`
-}
-
-// Stats of the current anime array of Score such as 10, 20, 30, 100 tells you how many people scored it such and Status such as PLANNING, WATCHING, DROPPED
-type Stats struct {
+// MediaStats of the current anime array of Score such as 10, 20, 30, 100 tells you how many people scored it such and Status such as PLANNING, WATCHING, DROPPED
+type MediaStats struct {
 	ScoreDistribution  []ScoreDistribution  `json:"scoreDistribution"`
 	StatusDistribution []StatusDistribution `json:"statusDistribution"`
-}
-
-// ScoreDistribution individual item to access it use array such as ScoreDistribution[0] to get the first array.
-type ScoreDistribution struct {
-	Score  int `json:"score"`
-	Amount int `json:"amount"`
-}
-
-// StatusDistribution individual item to access it use array such as StatusDistribution[0] to get the first array.
-type StatusDistribution struct {
-	Status string `json:"status"`
-	Amount int    `json:"amount"`
 }
 
 // url constant of Anilist Api
@@ -243,133 +201,594 @@ const url = "https://graphql.anilist.co"
 
 // MediaQuery Query Constant what will be posted to the api and send as post request
 const MediaQuery = `id,
-				idMal,
-				title {
-				  romaji,
-				  english,
-				  native,
-				  userPreferred,
-				},
-				type,
-				format,
-				status,
-				description,
-				startDate {
-				  year,
-				  month,
-				  day,
-				},
-				endDate {
-				  year,
-				  month,
-				  day,
-				},
-				season,
-				seasonYear,
-				seasonInt,
-				episodes,
-				duration,
-				chapters,
-				volumes,
-				countryOfOrigin,
-				isLicensed,
-				source,
-				hashtag,
-				trailer {
-				  id,
-				},
-				updatedAt,
-				coverImage {
-				  extraLarge,
-				  large,
-				  medium,
-				  color,
-				},
-				bannerImage,
-				genres,
-				synonyms,
-				averageScore,
-				meanScore,
-				popularity,
-				isLocked,
-				trending,
-				favourites,
-				tags {
-				  id,
-				},
-				relations {
-				  edges {
-					id,
-				  },
-				  nodes {
-						id,
-					},
-				},
-				characters {
-				  edges {
-					id,
-				  },
-				},
-				staff {
-				  edges {
-					id,
-				  },
-				},
-				studios {
-				  edges {
-					id,
-				  },
-				},
-				isFavourite,
-				isAdult,
-				nextAiringEpisode {
-				  id,
-				},
-				airingSchedule {
-				  edges {
-					id,
-				  },
-				},
-				externalLinks {
-				  id,
-				},
-				streamingEpisodes {
-				  title,
-				  thumbnail,
-				  url,
-				  site,
-				},
-				rankings {
-				  id,
-				},
-				reviews {
-				  edges {
-					node {
-					  id,
-					},
-				  },
-				},
-				recommendations {
-				  edges {
-					node {
-					  id,
-					},
-				  },
-				},
-				stats {
-					scoreDistribution {
-					  score,
-					  amount,
-					},
-					statusDistribution {
-					  status,
-					  amount,
-					},
-				  }
-				  siteUrl,
-				  autoCreateForumThread,
-				  isRecommendationBlocked,
-				  modNotes,`
+    idMal,
+    title {
+      romaji,
+      english,
+      native,
+      userPreferred,
+    },
+    type,
+    format,
+    status,
+    description,
+    startDate {
+      year,
+      month,
+      day,
+    },
+    endDate {
+      year,
+      month,
+      day,
+    },
+    season,
+    seasonYear,
+    seasonInt,
+    episodes,
+    duration,
+    chapters,
+    volumes,
+    countryOfOrigin,
+    isLicensed,
+    source,
+    hashtag,
+    trailer {
+      id,
+      site,
+      thumbnail,
+    },
+    updatedAt,
+    coverImage {
+      extraLarge,
+      large,
+      medium,
+      color,
+    },
+    bannerImage,
+    genres,
+    synonyms,
+    averageScore,
+    meanScore,
+    popularity,
+    isLocked,
+    trending,
+    favourites,
+    tags {
+      id,
+      name,
+      description,
+      category,
+      rank,
+      isGeneralSpoiler,
+      isMediaSpoiler,
+      isAdult,
+    },
+    relations {
+      edges {
+        id,
+        relationType,
+        node {
+          id,
+          idMal,
+          title {
+            romaji,
+            english,
+            native,
+            userPreferred,
+          }
+        }
+        node {
+          id,
+          idMal,
+          title {
+            romaji,
+            english,
+            native,
+            userPreferred,
+          },
+        },
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    characters {
+      edges {
+        id,
+        role,
+        name,
+        voiceActors {
+          id,
+          name {
+            first,
+            middle,
+            last,
+            full,
+            native,
+            userPreferred,
+          },
+          languageV2,
+          image {
+            large,
+            medium,
+          },
+          description,
+          primaryOccupations,
+          gender,
+          dateOfBirth {
+            year,
+            month,
+            day,
+          },
+          dateOfDeath {
+            year,
+            month,
+            day,
+          },
+          age,
+          yearsActive,
+          homeTown,
+          isFavourite,
+          isFavouriteBlocked,
+          siteUrl,
+          submitter {
+            id,
+            name,
+          },
+          submissionStatus,
+          submissionNotes,
+          favourites,
+          modNotes,
+        },
+        voiceActorRoles {
+          voiceActor {
+            id,
+            name {
+              first,
+              middle,
+              last,
+              full,
+              native,
+              userPreferred,
+            },
+          },
+          roleNotes,
+          dubGroup,
+        },
+        node {
+          id,
+          name {
+            first,
+            middle,
+            last,
+            full,
+            native,
+            userPreferred,
+          },
+          image {
+            large,
+            medium,
+          },
+          description,
+          gender,
+          dateOfBirth {
+            year,
+            month,
+            day,
+          },
+          age,
+          isFavourite,
+          isFavouriteBlocked,
+          siteUrl,
+          favourites,
+          modNotes,
+        },
+      },
+      nodes {
+        id,
+        name {
+          first,
+          middle,
+          last,
+          full,
+          native,
+          userPreferred,
+        },
+        image {
+          large,
+          medium,
+        },
+        description,
+        gender,
+        dateOfBirth {
+          year,
+          month,
+          day,
+        },
+        age,
+        isFavourite,
+        isFavouriteBlocked,
+        siteUrl,
+        favourites,
+        modNotes,
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    staff {
+      edges {
+        id,
+        role,
+        favouriteOrder,
+        node {
+          id,
+          name {
+            first,
+            middle,
+            last,
+            full,
+            native,
+            userPreferred,
+          },
+          languageV2,
+          image {
+            large,
+            medium,
+          },
+          description,
+          primaryOccupations,
+          gender,
+          dateOfBirth {
+            year,
+            month,
+            day,
+          }
+          dateOfDeath {
+            year,
+            month,
+            day,
+          },
+          age,
+          yearsActive,
+          homeTown,
+          isFavourite,
+          isFavouriteBlocked,
+          siteUrl,
+          submitter {
+            id,
+          }
+          submissionNotes,
+          favourites,
+          modNotes,
+        },
+      },
+      nodes {
+        id,
+        name {
+          first,
+          middle,
+          last,
+          full,
+          native,
+          userPreferred,
+        },
+        languageV2,
+        image {
+          large,
+          medium,
+        },
+        description,
+        primaryOccupations,
+        gender,
+        dateOfBirth {
+          year,
+          month,
+          day,
+        },
+        dateOfDeath {
+          year,
+          month,
+          day,
+        },
+        age,
+        yearsActive,
+        homeTown,
+        isFavourite,
+        isFavouriteBlocked,
+        siteUrl,
+        submitter {
+          id,
+        }
+        submissionNotes,
+        favourites,
+        modNotes,
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    studios {
+      edges {
+        id,
+        isMain,
+        favouriteOrder,
+        node {
+          id,
+          name,
+          isAnimationStudio,
+          siteUrl,
+          isFavourite,
+          favourites,
+        },
+      },
+      nodes {
+        id,
+        name,
+        isAnimationStudio,
+        siteUrl,
+        isFavourite,
+        favourites,
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    isFavourite,
+    isAdult,
+    nextAiringEpisode {
+      id,
+      airingAt,
+      timeUntilAiring,
+      episode,
+      media {
+        id,
+      },
+    },
+    airingSchedule {
+      edges {
+        id,
+        node {
+          id,
+          airingAt,
+          timeUntilAiring,
+          episode,
+          mediaId,
+        },
+      },
+      nodes {
+        id,
+        airingAt,
+        timeUntilAiring,
+        episode,
+        mediaId,
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    trends {
+      edges {
+        node {
+          mediaId,
+          date,
+          trending,
+          averageScore,
+          popularity,
+          inProgress,
+          releasing,
+          episode,
+        },
+      },
+      nodes {
+        mediaId,
+        date,
+        trending,
+        averageScore,
+        popularity,
+        inProgress,
+        releasing,
+        episode,
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    externalLinks {
+      id,
+      url,
+      site,
+    },
+    streamingEpisodes {
+      title,
+      thumbnail,
+      url,
+      site,
+    },
+    rankings {
+      id,
+      rank,
+      type,
+      format,
+      year,
+      season,
+      allTime,
+      context,
+    },
+    reviews {
+      edges {
+        node {
+          id,
+          userId,
+          mediaId,
+          mediaType,
+          summary,
+          body,
+          rating,
+          ratingAmount,
+          userRating,
+          score,
+          private,
+          siteUrl,
+          createdAt,
+          updatedAt,
+          user {
+            id,
+          },
+        },
+      },
+      nodes {
+        user {
+          id,
+          name,
+          about,
+          avatar {
+            large,
+            medium,
+          },
+          bannerImage,
+          siteUrl,
+        },
+        id,
+        userId,
+        mediaId,
+        mediaType,
+        summary,
+        body,
+        rating,
+        ratingAmount,
+        userRating,
+        score,
+        private,
+        siteUrl,
+        createdAt,
+        updatedAt,
+        user {
+          id,
+          name,
+          about,
+          avatar {
+            large,
+            medium,
+          },
+          bannerImage,
+          siteUrl,
+        },
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    recommendations {
+      edges {
+        node {
+          id,
+          rating,
+          userRating,
+          media {
+            id,
+            idMal,
+            title {
+              romaji,
+              english,
+              native,
+              userPreferred,
+            },
+            type,
+            format,
+            status,
+          },
+          user {
+            id,
+            name,
+            about,
+            avatar {
+              large,
+              medium,
+            },
+            bannerImage,
+          },
+        },
+      },
+      nodes {
+        id,
+        rating,
+        userRating,
+        media {
+          id,
+          idMal,
+          title {
+            romaji,
+            english,
+            native,
+            userPreferred,
+          },
+          type,
+          format,
+          status,
+        },
+        user {
+          id,
+          name,
+          about,
+          avatar {
+            large,
+            medium,
+          },
+          bannerImage,
+        },
+      },
+      pageInfo {
+        total,
+        perPage,
+        currentPage,
+        lastPage,
+        hasNextPage,
+      },
+    },
+    stats {
+      scoreDistribution {
+        score,
+        amount,
+      },
+      statusDistribution {
+        status,
+        amount,
+      },
+    },
+    siteUrl,
+    autoCreateForumThread,
+    isRecommendationBlocked,
+    modNotes,`
 
 // NewMediaQuery creates Media objects
 func NewMediaQuery() *Media {

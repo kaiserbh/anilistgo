@@ -7,14 +7,45 @@ import (
 
 // Character Query
 type Character struct {
-	ID          int    `json:"id"`
-	Name        Name   `json:"name"`
-	Image       Image  `json:"image"`
-	Description string `json:"description"`
-	IsFavourite bool   `json:"isFavourite"`
-	SiteURL     string `json:"siteUrl"`
-	Favourites  int    `json:"favourites"`
-	ModNotes    string `json:"modNotes"`
+	ID                 int             `json:"id"`
+	Name               CharacterName   `json:"name"`
+	Image              CharacterImage  `json:"image"`
+	Description        string          `json:"description"`
+	Gender             string          `json:"gender"`
+	DateOfBirth        FuzzyDate       `json:"dateOfBirth"`
+	Age                string          `json:"age"`
+	IsFavourite        bool            `json:"isFavourite"`
+	IsFavouriteBlocked bool            `json:"isFavouriteBlocked"`
+	SiteURL            string          `json:"siteUrl"`
+	Media              MediaConnection `json:"media"`
+	Favourites         int             `json:"favourites"`
+	ModNotes           string          `json:"modNotes"`
+}
+
+// CharacterImage of the characters Large or Medium
+type CharacterImage struct {
+	Large  string `json:"large"`
+	Medium string `json:"medium"`
+}
+
+// CharacterName The names of the character
+type CharacterName struct {
+	// First The character's given name
+	First string `json:"first"`
+	// Middle The character's middle name
+	Middle string `json:"middle"`
+	// Last The character's surname
+	Last string `json:"last"`
+	// Full The character's first and last name
+	Full string `json:"full"`
+	// Native The character's full name in their native language
+	Native string `json:"native"`
+	// Alternative Other names the character might be referred to as
+	Alternative []string `json:"alternative"`
+	// AlternativeSpoiler Other names the character might be referred to as but are spoilers
+	AlternativeSpoiler []string `json:"alternativeSpoiler"`
+	// UserPreferred The currently authenticated users preferred name language. Default romaji for non-authenticated
+	UserPreferred string `json:"userPreferred"`
 }
 
 // CharacterQuery graphql constant for CharacterQuery

@@ -7,183 +7,97 @@ import (
 
 // User query for Anilist
 type User struct {
-	ID                      int64            `json:"id"`
-	Name                    string           `json:"name"`
-	About                   string           `json:"about"`
-	Avatar                  Avatar           `json:"avatar"`
-	BannerImage             string           `json:"bannerImage"`
-	IsFollowing             bool             `json:"isFollowing"`
-	IsFollower              bool             `json:"isFollower"`
-	IsBlocked               bool             `json:"isBlocked"`
-	Bans                    []string         `json:"bans"`
-	Options                 Options          `json:"options"`
-	MediaListOptions        MediaListOptions `json:"mediaListOptions"`
-	Favourites              Favourites       `json:"favourites"`
-	UnreadNotificationCount int              `json:"unreadNotificationCount"`
-	SiteURL                 string           `json:"siteUrl"`
-	Statistics              Statistics       `json:"statistics"`
-	DonatorTier             int              `json:"donatorTier"`
-	DonatorBadge            string           `json:"donatorBadge"`
-	ModeratorStatus         string           `json:"moderatorStatus"`
-	UpdatedAt               int              `json:"updatedAt"`
+	// ID The id of the user
+	ID int64 `json:"id"`
+	// Name The name of the user
+	Name string `json:"name"`
+	// About The bio written by user (Markdown)
+	About string `json:"about"`
+	// Avatar The user's avatar images
+	Avatar UserAvatar `json:"avatar"`
+	// BannerImage The user's banner images
+	BannerImage string `json:"bannerImage"`
+	// IsFollowing If the authenticated user if following this user
+	IsFollowing bool `json:"isFollowing"`
+	// IsFollower If this user if following the authenticated user
+	IsFollower bool `json:"isFollower"`
+	// IsBlocked If the user is blocked by the authenticated user
+	IsBlocked bool `json:"isBlocked"`
+	// Bans
+	Bans []map[string]string `json:"bans"`
+	// Options The user's general options
+	Options UserOptions `json:"options"`
+	// MediaListOptions The user's media list options
+	MediaListOptions MediaListOptions `json:"mediaListOptions"`
+	// Favourites The users favourites
+	Favourites Favourites `json:"favourites"`
+	// UnreadNotificationCount The number of unread notifications the user has
+	UnreadNotificationCount int `json:"unreadNotificationCount"`
+	// SiteURL The url for the user page on the AniList website
+	SiteURL string `json:"siteUrl"`
+	// Statistics The users anime & manga list statistics
+	Statistics UserStatisticTypes `json:"statistics"`
+	// DonatorTier The donation tier of the user
+	DonatorTier int `json:"donatorTier"`
+	// DonatorBadge Custom donation badge text
+	DonatorBadge string `json:"donatorBadge"`
+	// ModeratorRoles The user's moderator roles if they are a site moderator
+	ModeratorRoles string `json:"moderatorRoles"`
+	// CreatedAt When the user's account was created. (Does not exist for accounts created before 2020)
+	CreatedAt int `json:"createdAt"`
+	// UpdatedAt When the user's data was last updated
+	UpdatedAt int `json:"updatedAt"`
 }
 
-// Avatar Images Large and medium size
-type Avatar struct {
+// UserAvatar Images Large and medium size
+type UserAvatar struct {
 	Large  string `json:"large"`
 	Medium string `json:"medium"`
 }
 
-// Options User Options
-type Options struct {
-	TitleLanguage       string `json:"titleLanguage"`
-	DisplayAdultContent bool   `json:"displayAdultContent"`
-	AiringNotification  bool   `json:"airingNotification"`
-	ProfileColor        string `json:"profileColor"`
+// UserOptions A user's general options
+type UserOptions struct {
+	// TitleLanguage The language the user wants to see media titles in
+	TitleLanguage string `json:"titleLanguage"`
+	// DisplayAdultContent Whether the user has enabled viewing of 18+ content
+	DisplayAdultContent bool `json:"displayAdultContent"`
+	// AiringNotification Whether the user receives notifications when a show they are watching aires
+	AiringNotification bool `json:"airingNotification"`
+	// ProfileColor Profile highlight color (blue, purple, pink, orange, red, green, gray)
+	ProfileColor string `json:"profileColor"`
+	// NotificationOptions Notification options
+	NotificationOptions []NotificationOption `json:"notificationOptions"`
+	// Timezone The user's timezone offset (Auth user only)
+	Timezone string `json:"timezone"`
+	// ActivityMergeTime Minutes between activity for them to be merged together. 0 is Never, Above 2 weeks (20160 mins) is Always.
+	ActivityMergeTime int `json:"activityMergeTime"`
+	// StaffNameLanguage The language the user wants to see staff and character names in
+	StaffNameLanguage string `json:"staffNameLanguage"`
 }
 
 // MediaListOptions options for MediaList
 type MediaListOptions struct {
-	ScoreFormat string    `json:"scoreFormat"`
-	RowOrder    string    `json:"rowOrder"`
-	AnimeList   AnimeList `json:"animeList"`
-	MangaList   MangaList `json:"mangaList"`
+	ScoreFormat string               `json:"scoreFormat"`
+	RowOrder    string               `json:"rowOrder"`
+	AnimeList   MediaListTypeOptions `json:"animeList"`
+	MangaList   MediaListTypeOptions `json:"mangaList"`
 }
 
-// AnimeList part of MediaList
-type AnimeList struct {
+// MediaListTypeOptions A user's list options for anime or manga lists
+type MediaListTypeOptions struct {
 	SectionOrder                  []string `json:"sectionOrder"`
 	SplitCompletedSectionByFormat bool     `json:"splitCompletedSectionByFormat"`
-	Theme                         Theme    `json:"theme"`
 	CustomLists                   []string `json:"customLists"`
 	AdvancedScoring               []string `json:"advancedScoring"`
 	AdvancedScoringEnabled        bool     `json:"advancedScoringEnabled"`
 }
 
-// MangaList part of MediaList
-type MangaList struct {
-	SectionOrder                  []string `json:"sectionOrder"`
-	SplitCompletedSectionByFormat bool     `json:"splitCompletedSectionByFormat"`
-	Theme                         Theme    `json:"theme"`
-	CustomLists                   []string `json:"customLists"`
-	AdvancedScoring               []string `json:"advancedScoring"`
-	AdvancedScoringEnabled        bool     `json:"advancedScoringEnabled"`
-}
-
-// Theme user theme types
-type Theme struct {
-	ThemeType   string `json:"themeType"`
-	Theme       string `json:"theme"`
-	CoverImages string `json:"coverImages"`
-}
-
-// Favourites User Favourites
 type Favourites struct {
-	Anime      Anime      `json:"anime"`
-	Manga      Manga      `json:"manga"`
-	Characters Characters `json:"characters"`
-	Staff      StaffU     `json:"staff"`
-	Studios    Studios    `json:"studios"`
-}
-
-// Anime id of use favourites
-type Anime struct {
-	Edges             []Edges        `json:"edges"`
-	Count             int            `json:"count"`
-	MeanScore         float64        `json:"meanScore"`
-	StandardDeviation float64        `json:"standardDeviation"`
-	MinutesWatched    int            `json:"minutesWatched"`
-	EpisodesWatched   int            `json:"episodesWatched"`
-	Formats           []Formats      `json:"formats"`
-	Statuses          []Statuses     `json:"statuses"`
-	Scores            []Scores       `json:"scores"`
-	Lengths           []Lengths      `json:"lengths"`
-	ReleaseYears      []ReleaseYears `json:"releaseYears"`
-	StartYears        []StartYears   `json:"startYears"`
-	Genres            []Genres       `json:"genres"`
-	Tags              []TagsUser     `json:"tags"`
-	Countries         []Countries    `json:"countries"`
-}
-
-// Formats user statistic formats
-type Formats struct {
-	Format string `json:"format"`
-}
-
-// Statuses user statistic status
-type Statuses struct {
-	Status string `json:"status"`
-}
-
-// Scores user statistic scores
-type Scores struct {
-	Score string `json:"status"`
-}
-
-// Lengths user statistic lengths
-type Lengths struct {
-	Length string `json:"length"`
-}
-
-// ReleaseYears user statistic ReleaseYear
-type ReleaseYears struct {
-	ReleaseYear int `json:"releaseYear"`
-}
-
-// StartYears user statistic StartYears
-type StartYears struct {
-	StartYear int `json:"startYear"`
-}
-
-// Genres user statistic Genres
-type Genres struct {
-	Genre string `json:"genre"`
-}
-
-// TagsUser A tag that describes a theme or element of the media
-type TagsUser struct {
-	Count          int     `json:"count"`
-	MeanScore      float64 `json:"meanScore"`
-	MinutesWatched int64   `json:"minutesWatched"`
-	MediaIds       []int   `json:"mediaIds"`
-	Tag            Tag     `json:"tag"`
-}
-
-// Tag A tag that describes a theme or element of the media\
-type Tag struct {
-	ID int `json:"id"`
-}
-
-// Countries of the media that the user watched/read from.
-type Countries struct {
-	Country string `json:"country"`
-}
-
-// Manga id of use favourites
-type Manga struct {
-	Edges        []Edges        `json:"edges"`
-	Count        int            `json:"count"`
-	MeanScore    float64        `json:"meanScore"`
-	ChapterRead  int            `json:"chapterRead"`
-	Formats      []Formats      `json:"formats"`
-	Statuses     []Statuses     `json:"statuses"`
-	Scores       []Scores       `json:"scores"`
-	ReleaseYears []ReleaseYears `json:"releaseYears"`
-	StartYears   []StartYears   `json:"startYears"`
-	Genres       []Genres       `json:"genres"`
-	Tags         []TagsUser     `json:"tags"`
-	Countries    []Countries    `json:"countries"`
-}
-
-// Statistics User statistics anime or scores
-type Statistics struct {
-	Anime Anime `json:"anime"`
-	Manga Manga `json:"manga"`
-}
-
-// StaffU staff favourite on users profile
-type StaffU struct {
-	Edges []Edges `json:"edges"`
+	Anime      MediaConnection     `json:"anime"`
+	Manga      MediaConnection     `json:"manga"`
+	Characters CharacterConnection `json:"characters"`
+	Staff      StaffConnection     `json:"staff"`
+	Studios    StudioConnection    `json:"studios"`
 }
 
 const userQuery = `
