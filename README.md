@@ -1,4 +1,4 @@
-# AniList Go Wrapper
+# anilistgo wrapper
 [![Go Reference](https://pkg.go.dev/badge/github.com/kaiserbh/anilistgo.svg)](https://pkg.go.dev/github.com/kaiserbh/anilistgo)
 [![Go Report Card](https://goreportcard.com/badge/github.com/kaiserbh/anilistgo)](https://goreportcard.com/report/github.com/kaiserbh/anilistgo)
 
