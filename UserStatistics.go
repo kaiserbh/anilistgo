@@ -2,7 +2,7 @@ package anilistgo
 
 type UserStatistics struct {
 	Count             int                        `json:"count"`
-	MeanScore         int                        `json:"meanScore"`
+	MeanScore         float64                    `json:"meanScore"`
 	StandardDeviation float64                    `json:"standardDeviation"`
 	MinutesWatched    int                        `json:"minutesWatched"`
 	EpisodeWatched    int                        `json:"episodeWatched"`
@@ -55,7 +55,7 @@ type UserLengthStatistic struct {
 	MinutesWatched int     `json:"minutesWatched"`
 	ChaptersRead   int     `json:"chaptersRead"`
 	MediaIds       []int   `json:"mediaIds"`
-	Length         int     `json:"length"`
+	Length         string  `json:"length"`
 }
 
 type UserReleaseYearStatistic struct {
@@ -109,7 +109,7 @@ type UserVoiceActorStatistic struct {
 	MinutesWatched int     `json:"minutesWatched"`
 	ChaptersRead   int     `json:"chaptersRead"`
 	VoiceActor     Staff   `json:"voiceActor"`
-	CharacterIds   int     `json:"characterIds"`
+	CharacterIds   []int   `json:"characterIds"`
 }
 
 type UserStaffStatistic struct {
