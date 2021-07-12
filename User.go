@@ -100,159 +100,423 @@ type Favourites struct {
 	Studios    StudioConnection    `json:"studios"`
 }
 
-const userQuery = `
-					id,
-    				name,
-    				about,
-    				avatar {
-      					large,
-      					medium,
-					},
-					bannerImage,
-    				isFollowing,
-    				isFollower,
-    				isBlocked,
-					bans,
-					options {
-      					titleLanguage,
-      					displayAdultContent,
-      					airingNotifications,
-      					profileColor,
-    				},
-					mediaListOptions {
-      					scoreFormat,
-						rowOrder,
-						animeList {
-							sectionOrder,
-							splitCompletedSectionByFormat,
-							theme,
-							customLists,
-							advancedScoring,
-							advancedScoringEnabled,
-						  }
-						mangaList {
-							sectionOrder,
-							splitCompletedSectionByFormat,
-							theme,
-							customLists,
-							advancedScoring,
-							advancedScoringEnabled,
-						},
-					},
-					favourites {
-						anime {
-							edges {
-								id,
-							},
-						},
-						manga {
-							edges {
-								id,
-							},
-						},
-						characters {
-							edges {
-								id,
-							},
-						},
-						staff {
-							edges {
-								id,
-							},
-						},
-						studios {
-							edges {
-								id,
-							},
-						},
-					},
-					statistics {
-						anime {
-							count,
-							meanScore,
-							standardDeviation,
-							minutesWatched,
-							episodesWatched,
-							formats {
-								format,
-							},
-							statuses {
-								status,
-							},
-							scores {
-								score,
-							},
-							lengths {
-								length,
-							},
-							releaseYears {
-								releaseYear,
-							},
-							startYears {
-								startYear,
-							},
-							genres {
-								genre,
-							},
-							tags {
-								count,
-								meanScore,
-								minutesWatched,
-								mediaIds,
-								tag {
-									id,
-								},
-							},
-							countries {
-          						country,
-       						},
-						},
-						manga {
-							count,
-							meanScore,
-							chaptersRead,
-							formats {
-								format,
-							},
-							statuses {
-								status,
-							},
-							scores {
-								score,
-							},
-							lengths {
-								length,
-							},
-							releaseYears {
-								releaseYear,
-							},
-							startYears {
-								startYear,
-							},
-							genres {
-								genre,
-							},
-							tags {
-								count,
-								meanScore,
-								minutesWatched,
-								mediaIds,
-								tag {
-									id,
-								},
-							},
-							countries {
-          						country,
-       						},
-						},	
-					},
-					unreadNotificationCount,
-					siteUrl,
-					donatorTier,
-					donatorBadge,
-					moderatorStatus,
-					updatedAt,
-					`
+const userQuery = `id
+    name
+    about
+    avatar {
+      large
+      medium
+    }
+    bannerImage
+    isFollowing
+    isFollower
+    isBlocked
+    bans
+    options {
+      titleLanguage
+      displayAdultContent
+      airingNotifications
+      profileColor
+      timezone
+      activityMergeTime
+      staffNameLanguage
+    }
+    mediaListOptions {
+      scoreFormat
+      rowOrder
+      useLegacyLists
+      sharedTheme
+      sharedThemeEnabled
+    }
+    favourites {
+      anime {
+        edges {
+          node {
+            id
+            idMal
+            title {
+              romaji
+              english
+              native
+              userPreferred
+            }
+          }
+        }
+        nodes {
+          id
+          idMal
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+        }
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+      }
+      manga {
+        edges {
+          node {
+            id
+            idMal
+            title {
+              romaji
+              english
+              native
+              userPreferred
+            }
+          }
+        }
+        nodes {
+          id
+          idMal
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+        }
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+      }
+      characters {
+        edges {
+          id
+          role
+          name
+          node {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            image {
+              large
+              medium
+            }
+            description
+            gender
+            dateOfBirth {
+              year
+              month
+              day
+            }
+            age
+            favourites
+          }
+          node {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            image {
+              large
+              medium
+            }
+            description
+            gender
+            dateOfBirth {
+              year
+              month
+              day
+            }
+            age
+            favourites
+          }
+        }
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+      }
+      staff {
+        edges {
+          id
+          role
+          node {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            languageV2
+            image {
+              large
+              medium
+            }
+            description
+            primaryOccupations
+            gender
+            dateOfBirth {
+              year
+              month
+              day
+            }
+            dateOfDeath {
+              year
+              month
+              day
+            }
+            age
+          }
+        }
+        nodes {
+          id
+          name {
+            first
+            middle
+            last
+            full
+            native
+            userPreferred
+          }
+          languageV2
+          image {
+            large
+            medium
+          }
+          description
+          primaryOccupations
+          gender
+          dateOfBirth {
+            year
+            month
+            day
+          }
+          dateOfDeath {
+            year
+            month
+            day
+          }
+          age
+        }
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+      }
+      studios {
+        edges {
+          id
+          isMain
+          node {
+            id
+            name
+            isAnimationStudio
+            siteUrl
+            favourites
+          }
+        }
+        nodes {
+          id
+          name
+          isAnimationStudio
+          siteUrl
+          favourites
+        }
+        pageInfo {
+          total
+          perPage
+          currentPage
+          lastPage
+          hasNextPage
+        }
+      }
+    }
+    statistics {
+      anime {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+        chaptersRead
+        volumesRead
+        formats {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          format
+        }
+        statuses {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          status
+        }
+        scores {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          score
+        }
+        lengths {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          length
+        }
+        releaseYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          releaseYear
+        }
+        startYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          startYear
+        }
+        genres {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          genre
+        }
+        tags {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          tag {
+            id
+            name
+            description
+            category
+            rank
+            isGeneralSpoiler
+            isMediaSpoiler
+            isAdult
+          }
+        }
+        countries {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          country
+        }
+        voiceActors {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          voiceActor {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            languageV2
+            image {
+              large
+              medium
+            }
+            description
+            siteUrl
+          }
+          characterIds
+        }
+        staff {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          staff {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            languageV2
+            image {
+              large
+              medium
+            }
+            description
+            siteUrl
+          }
+        }
+        studios {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          studio {
+            id
+            name
+            isAnimationStudio
+            siteUrl
+            favourites
+          }
+        }
+      }
+    }
+    unreadNotificationCount
+    siteUrl
+    donatorTier
+    donatorBadge
+    createdAt
+    updatedAt`
 
 // NewUserQuery Create new User Object
 func NewUserQuery() *User {
