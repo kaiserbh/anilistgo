@@ -137,6 +137,15 @@ func CleanStaffJSON(str []byte) []byte {
 	return firstItr
 }
 
+// CleanStudioJSON cleans the html body
+func CleanStudioJSON(str []byte) []byte {
+	re := regexp.MustCompile(`(?m){"data":{"Studio":|}}$`)
+	substitution := ""
+	firstItr := re.ReplaceAll(str, []byte(substitution))
+
+	return firstItr
+}
+
 // CleanCharacterJSON cleans the html body
 func CleanCharacterJSON(str []byte) []byte {
 	re := regexp.MustCompile(`(?m){"data":{"Character":|}}$`)
