@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+// Studio Animation or production company
 type Studio struct {
 	// ID The id of the studio
 	ID int `json:"id"`
@@ -18,10 +19,11 @@ type Studio struct {
 	SiteUrl string `json:"siteUrl"`
 	// IsFavourite If the studio is marked as favourite by the currently authenticated user
 	IsFavourite bool `json:"isFavourite"`
-	// Favourites The amount of user's who have favourited the studio
+	// Favourites The amount of user's who have favorite	 the studio
 	Favourites int `json:"favourites"`
 }
 
+// StudioQuery constant of data we are querying against anilist apu
 const StudioQuery = `id
     name
     isAnimationStudio
