@@ -79,47 +79,342 @@ type StaffImage struct {
 }
 
 // StaffQuery graphql constant for StaffQuery
-const StaffQuery = `id,
-					name {
-						first,
-						last,
-						full,
-						native,
-					},
-					language,
-					image {
-						large,
-						medium,
-					},
-					description,
-					isFavourite,
-					siteUrl,
-					staffMedia{
-						edges {
-							id,
-						},
-					},
-					characters {
-						edges{
-							id,
-						},
-					},
-					characterMedia {
-						edges{
-							id,
-						},
-					},
-					staff {
-						id,
-					},
-					submitter{
-						id,
-					},
-					submissionStatus,
-					submissionNotes,
-					favourites,
-					modNotes,
-				`
+const StaffQuery = `id
+    name {
+      first
+      middle
+      last
+      full
+      native
+      userPreferred
+    }
+    languageV2
+    image {
+      large
+      medium
+    }
+    description
+    gender
+    dateOfBirth {
+      year
+      month
+      day
+    }
+    dateOfDeath {
+      year
+      month
+      day
+    }
+    age
+    yearsActive
+    homeTown
+    isFavourite
+    isFavouriteBlocked
+    siteUrl
+    staffMedia {
+      edges {
+        id
+        node {
+          id
+          idMal
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+          type
+          format
+          status
+          description
+          startDate {
+            year
+            month
+            day
+          }
+          endDate {
+            year
+            month
+            day
+          }
+          season
+          seasonYear
+          seasonInt
+          episodes
+          duration
+          chapters
+          volumes
+          countryOfOrigin
+          isLicensed
+          source
+          hashtag
+          trailer {
+            id
+            site
+            thumbnail
+          }
+          updatedAt
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
+          genres
+          synonyms
+          averageScore
+          meanScore
+          popularity
+          isLocked
+          trending
+          favourites
+          tags {
+            id
+            name
+            description
+            category
+            rank
+            isGeneralSpoiler
+            isMediaSpoiler
+            isAdult
+          }
+          isFavourite
+          isAdult
+          nextAiringEpisode {
+            id
+            airingAt
+            timeUntilAiring
+            episode
+            mediaId
+          }
+          externalLinks {
+            id
+            url
+            site
+          }
+          streamingEpisodes {
+            title
+            thumbnail
+            url
+            site
+          }
+          rankings {
+            id
+            rank
+            type
+            format
+            year
+            season
+            allTime
+            context
+          }
+          stats {
+            scoreDistribution {
+              score
+              amount
+            }
+            statusDistribution {
+              status
+              amount
+            }
+          }
+          siteUrl
+          autoCreateForumThread
+          isRecommendationBlocked
+          modNotes
+        }
+      }
+      nodes {
+        id
+        idMal
+        title {
+          romaji
+          english
+          native
+          userPreferred
+        }
+        type
+        format
+        status
+        description
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        season
+        seasonYear
+        seasonInt
+        episodes
+        duration
+        chapters
+        volumes
+        countryOfOrigin
+        isLicensed
+        source
+        hashtag
+        trailer {
+          id
+          site
+          thumbnail
+        }
+        updatedAt
+        coverImage {
+          extraLarge
+          large
+          medium
+          color
+        }
+        bannerImage
+        genres
+        synonyms
+        averageScore
+        meanScore
+        popularity
+        isLocked
+        trending
+        favourites
+        tags {
+          id
+          name
+          description
+          category
+          rank
+          isGeneralSpoiler
+          isMediaSpoiler
+          isAdult
+        }
+        isFavourite
+        isAdult
+        nextAiringEpisode {
+          id
+          airingAt
+          timeUntilAiring
+          episode
+          mediaId
+        }
+        externalLinks {
+          id
+          url
+          site
+        }
+        streamingEpisodes {
+          title
+          thumbnail
+          url
+          site
+        }
+        rankings {
+          id
+          rank
+          type
+          format
+          year
+          season
+          allTime
+          context
+        }
+        stats {
+          scoreDistribution {
+            score
+            amount
+          }
+          statusDistribution {
+            status
+            amount
+          }
+        }
+        siteUrl
+        autoCreateForumThread
+        isRecommendationBlocked
+        modNotes
+      }
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+    }
+    characters {
+      edges {
+        id
+        role
+        node {
+          id
+          name {
+            first
+            middle
+            last
+            full
+            native
+            userPreferred
+          }
+          image {
+            large
+            medium
+          }
+          description
+          gender
+          dateOfBirth {
+            year
+            month
+            day
+          }
+          age
+          isFavourite
+          isFavouriteBlocked
+          siteUrl
+        }
+      }
+      nodes {
+        id
+        name {
+          first
+          middle
+          last
+          full
+          native
+          userPreferred
+        }
+        image {
+          large
+          medium
+        }
+        description
+        gender
+        dateOfBirth {
+          year
+          month
+          day
+        }
+        age
+        isFavourite
+        isFavouriteBlocked
+        siteUrl
+      }
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+    }
+    submitter {
+      id
+      name
+    }
+    submissionStatus
+    submissionNotes
+    favourites`
 
 // NewStaffQuery Create new Staff Object
 func NewStaffQuery() *Staff {
