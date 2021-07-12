@@ -947,6 +947,36 @@ func (m *Media) FilterBySeason(season string) (bool, error) {
 	return true, nil
 }
 
+// FilterMediaByTitle search Anilist Media by title of the anime or manga
+func (m *Media) FilterMediaByTitle(title string) (bool, error) {
+	jsonData := map[string]string{
+		"query": fmt.Sprintf(`
+		{ 
+			Media(search: "%v") {
+				%s
+			  }
+		}
+	`, title, MediaQuery),
+	}
+
+	jsonValue, err := json.Marshal(jsonData)
+	if err != nil {
+		return false, err
+	}
+
+	request, err := PostRequest(jsonValue)
+	if err != nil {
+		return false, err
+	}
+
+	cleanData := cleanMediaJSON(request)
+	if err := json.Unmarshal(cleanData, &m); err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
 // FilterAnimeByTitle search Anilist Media by title of the anime or manga
 func (m *Media) FilterAnimeByTitle(title string) (bool, error) {
 	jsonData := map[string]string{
