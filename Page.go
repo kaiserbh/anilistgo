@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Page Object to store pages
+// Page Page of data
 type Page struct {
 	PageInfo PageInfo `json:"pageInfo"`
 	Media    []Media  `json:"media"`

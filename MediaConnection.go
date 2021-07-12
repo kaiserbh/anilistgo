@@ -1,11 +1,13 @@
 package anilistgo
 
+// MediaConnection stores edges, nodes, and pageInfo for MediaConnection
 type MediaConnection struct {
 	Edges    []MediaEdge `json:"edges"`
 	Nodes    []Media     `json:"nodes"`
 	PageInfo PageInfo    `json:"pageInfo"`
 }
 
+// MediaEdge Media connection edge
 type MediaEdge struct {
 	Node Media `json:"node"`
 	// Id The id of the connection

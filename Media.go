@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Media object to store the json from Anilist
+// Media Anime or Manga
 type Media struct {
 	// Media ID from anilist
 	ID int `json:"id"`

@@ -1,5 +1,6 @@
 package anilistgo
 
+// UserStatistics holds information about user stats what they watched or read and scores etc.
 type UserStatistics struct {
 	Count             int                        `json:"count"`
 	MeanScore         float64                    `json:"meanScore"`
@@ -22,6 +23,7 @@ type UserStatistics struct {
 	Studios           []UserStudioStatistic      `json:"studios"`
 }
 
+// UserFormatStatistic holds the stats of type format such as : TV, MOVIE, OVA, ONA etc.
 type UserFormatStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -31,6 +33,7 @@ type UserFormatStatistic struct {
 	Format         string  `json:"format"`
 }
 
+// UserStatusStatistic holds the stats of type Status such as : COMPLETED, PLANNING, CURRENT, and PAUSED
 type UserStatusStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -40,6 +43,7 @@ type UserStatusStatistic struct {
 	Status         string  `json:"status"`
 }
 
+// UserScoreStatistic holds the stats of type Score such as : 70, 80, 75 basically any scores made and it will return the count meanScore and mediaIds.
 type UserScoreStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -49,6 +53,7 @@ type UserScoreStatistic struct {
 	Score          int     `json:"score"`
 }
 
+// UserLengthStatistic holds the stats of type Length such as : 7-16 minutes, 101+, 1, 29-55. minutes or chapter read for manga.
 type UserLengthStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -58,6 +63,7 @@ type UserLengthStatistic struct {
 	Length         string  `json:"length"`
 }
 
+// UserReleaseYearStatistic holds the stats of type ReleaseYear such as : 2020, 2019, 2018 returns the score and MediaIds.
 type UserReleaseYearStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -67,6 +73,7 @@ type UserReleaseYearStatistic struct {
 	ReleaseYear    int     `json:"releaseYear"`
 }
 
+// UserStartYearStatistic holds the stats of StartYear  such as : 2020, 2019, 2018 returns the score and MediaIds.
 type UserStartYearStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -76,6 +83,7 @@ type UserStartYearStatistic struct {
 	StartYear      int     `json:"startYear"`
 }
 
+// UserGenreStatistic holds the stats of Genre  such as : Action, Comedy, Fantasy, Adventure etc.
 type UserGenreStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -85,6 +93,7 @@ type UserGenreStatistic struct {
 	Genre          string  `json:"genre"`
 }
 
+// UserTagStatistic holds the stats of Tag users tags such as; Male Protagonist, Shounen, Super Power etc
 type UserTagStatistic struct {
 	Count          int      `json:"count"`
 	MeanScore      float64  `json:"meanScore"`
@@ -94,6 +103,7 @@ type UserTagStatistic struct {
 	Tag            MediaTag `json:"tag"`
 }
 
+// UserCountryStatistic  holds the stats of Country which country the anime/manga user watched from contains: "JP" == Japan, "CN" == China and etc
 type UserCountryStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -103,6 +113,7 @@ type UserCountryStatistic struct {
 	Country        string  `json:"country"`
 }
 
+// UserVoiceActorStatistic holds the stats of VoiceActor such as the count or how many anime they have voiced in the user anime stats.
 type UserVoiceActorStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -112,6 +123,7 @@ type UserVoiceActorStatistic struct {
 	CharacterIds   []int   `json:"characterIds"`
 }
 
+// UserStaffStatistic holds the stats of Staff such as the count or how many anime they have worked on etc.
 type UserStaffStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`
@@ -121,6 +133,7 @@ type UserStaffStatistic struct {
 	Staff          Staff   `json:"staff"`
 }
 
+// UserStudioStatistic holds the stats of Studio such as the count or how many anime the user watched of this particular studio and what are their ratings for the anime etc.
 type UserStudioStatistic struct {
 	Count          int     `json:"count"`
 	MeanScore      float64 `json:"meanScore"`

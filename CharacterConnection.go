@@ -1,5 +1,6 @@
 package anilistgo
 
+// CharacterConnection connection for Character
 type CharacterConnection struct {
 	Edges []CharacterEdge `json:"edges"`
 	Nodes []Character     `json:"nodes"`
@@ -7,6 +8,7 @@ type CharacterConnection struct {
 	PageInfo PageInfo `json:"pageInfo"`
 }
 
+// CharacterEdge Character connection edge
 type CharacterEdge struct {
 	Node Character `json:"node"`
 	// ID The id of the connection

@@ -1,11 +1,13 @@
 package anilistgo
 
+// StudioConnection holds Edges, Nodes, and PageInfo of StudioConnection
 type StudioConnection struct {
 	Edges    []StudioEdge `json:"edges"`
 	Nodes    []Studio     `json:"nodes"`
 	PageInfo PageInfo     `json:"pageInfo"`
 }
 
+// StudioEdge Studio connection edge
 type StudioEdge struct {
 	Node Studio `json:"node"`
 	// ID The id of the connection
