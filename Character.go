@@ -49,23 +49,264 @@ type CharacterName struct {
 }
 
 // CharacterQuery graphql constant for CharacterQuery
-const CharacterQuery = `id,
-					name {
-						first,
-						last,
-						full,
-						native,
-					},
-					image {
-						large,
-						medium,
-					},
-					description,
-					isFavourite,
-					siteUrl,
-					favourites,
-					modNotes,
-				`
+const CharacterQuery = `id
+    name {
+      first
+      middle
+      last
+      full
+      native
+      userPreferred
+    }
+    image {
+      large
+      medium
+    }
+    description
+    gender
+    dateOfBirth {
+      year
+      month
+      day
+    }
+    age
+    isFavourite
+    isFavouriteBlocked
+    siteUrl
+    media {
+      edges {
+        id
+        node {
+          id
+          idMal
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+          type
+          format
+          status
+          description
+          startDate {
+            year
+            month
+            day
+          }
+          endDate {
+            year
+            month
+            day
+          }
+          season
+          seasonYear
+          seasonInt
+          episodes
+          duration
+          chapters
+          volumes
+          countryOfOrigin
+          isLicensed
+          source
+          hashtag
+          trailer {
+            id
+            site
+            thumbnail
+          }
+          updatedAt
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
+          genres
+          synonyms
+          averageScore
+          meanScore
+          popularity
+          isLocked
+          trending
+          favourites
+          tags {
+            id
+            name
+            description
+            category
+            rank
+            isGeneralSpoiler
+            isMediaSpoiler
+            isAdult
+          }
+          isFavourite
+          isAdult
+          nextAiringEpisode {
+            id
+            airingAt
+            timeUntilAiring
+            episode
+            mediaId
+          }
+          externalLinks {
+            id
+            url
+            site
+          }
+          streamingEpisodes {
+            title
+            thumbnail
+            url
+            site
+          }
+          rankings {
+            id
+            rank
+            type
+            format
+            year
+            season
+            allTime
+            context
+          }
+          stats {
+            scoreDistribution {
+              score
+              amount
+            }
+            statusDistribution {
+              status
+              amount
+            }
+          }
+          siteUrl
+          autoCreateForumThread
+          isRecommendationBlocked
+          modNotes
+        }
+      }
+      nodes {
+        id
+        idMal
+        title {
+          romaji
+          english
+          native
+          userPreferred
+        }
+        type
+        format
+        status
+        description
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        season
+        seasonYear
+        seasonInt
+        episodes
+        duration
+        chapters
+        volumes
+        countryOfOrigin
+        isLicensed
+        source
+        hashtag
+        trailer {
+          id
+          site
+          thumbnail
+        }
+        updatedAt
+        coverImage {
+          extraLarge
+          large
+          medium
+          color
+        }
+        bannerImage
+        genres
+        synonyms
+        averageScore
+        meanScore
+        popularity
+        isLocked
+        trending
+        favourites
+        tags {
+          id
+          name
+          description
+          category
+          rank
+          isGeneralSpoiler
+          isMediaSpoiler
+          isAdult
+        }
+        isFavourite
+        isAdult
+        nextAiringEpisode {
+          id
+          airingAt
+          timeUntilAiring
+          episode
+          mediaId
+        }
+        externalLinks {
+          id
+          url
+          site
+        }
+        streamingEpisodes {
+          title
+          thumbnail
+          url
+          site
+        }
+        rankings {
+          id
+          rank
+          type
+          format
+          year
+          season
+          allTime
+          context
+        }
+        stats {
+          scoreDistribution {
+            score
+            amount
+          }
+          statusDistribution {
+            status
+            amount
+          }
+        }
+        siteUrl
+        autoCreateForumThread
+        isRecommendationBlocked
+        modNotes
+      }
+      pageInfo {
+        total
+        perPage
+        currentPage
+        lastPage
+        hasNextPage
+      }
+    }
+    favourites
+    modNotes`
 
 // NewCharacterQuery creates Character objects
 func NewCharacterQuery() *Character {
