@@ -1,5 +1,6 @@
 package anilistgo
 
+// Review A Review that features in an anime or manga
 type Review struct {
 	Id           int    `json:"id"`
 	UserId       int    `json:"userId"`

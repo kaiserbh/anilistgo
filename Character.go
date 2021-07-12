@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Character Query
+// Character A character that features in an anime or manga
 type Character struct {
 	ID                 int             `json:"id"`
 	Name               CharacterName   `json:"name"`

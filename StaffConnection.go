@@ -1,11 +1,13 @@
 package anilistgo
 
+// StaffConnection holds Edges, Nodes and PageInfo of StaffConnection
 type StaffConnection struct {
 	Edges    []StaffEdge `json:"edges"`
 	Nodes    []Staff     `json:"nodes"`
 	PageInfo PageInfo    `json:"pageInfo"`
 }
 
+// StaffEdge Staff connection edge
 type StaffEdge struct {
 	Node Staff `json:"node"`
 	// ID The id of the connection

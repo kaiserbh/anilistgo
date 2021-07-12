@@ -7,6 +7,7 @@ type FuzzyDate struct {
 	Day   int `json:"day"`
 }
 
+// StaffRoleType Voice actor role for a character
 type StaffRoleType struct {
 	// VoiceActor The voice actors of the character
 	VoiceActor Staff `json:"voiceActor"`
@@ -16,6 +17,7 @@ type StaffRoleType struct {
 	DubGroup string `json:"dubGroup"`
 }
 
+// NotificationOption Notification option
 type NotificationOption struct {
 	// Type The type of notification
 	Type string `json:"type"`
@@ -23,18 +25,19 @@ type NotificationOption struct {
 	Enabled bool `json:"enabled"`
 }
 
+// UserStatisticTypes  holds user statistics anime|manga
 type UserStatisticTypes struct {
 	Anime UserStatistics `json:"anime"`
 	Manga UserStatistics `json:"manga"`
 }
 
-// ScoreDistribution individual item to access it use array such as ScoreDistribution[0] to get the first array.
+// ScoreDistribution A user's list score distribution. It's an array so [0] to get the item.
 type ScoreDistribution struct {
 	Score  int `json:"score"`
 	Amount int `json:"amount"`
 }
 
-// StatusDistribution individual item to access it use array such as StatusDistribution[0] to get the first array.
+// StatusDistribution The distribution of the watching/reading status of media or a user's list. It's an array so [0] to get the item.
 type StatusDistribution struct {
 	Status string `json:"status"`
 	Amount int    `json:"amount"`

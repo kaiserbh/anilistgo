@@ -1,11 +1,13 @@
 package anilistgo
 
+// AiringScheduleConnection connection for AiringSchedule
 type AiringScheduleConnection struct {
 	Edges    []AiringScheduleEdge `json:"edges"`
 	Nodes    []AiringSchedule     `json:"nodes"`
 	PageInfo PageInfo             `json:"pageInfo"`
 }
 
+// AiringScheduleEdge AiringSchedule connection edge
 type AiringScheduleEdge struct {
 	Node AiringSchedule `json:"node"`
 	ID   int            `json:"id"`

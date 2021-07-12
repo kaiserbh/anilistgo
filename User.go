@@ -510,6 +510,161 @@ const userQuery = `id
           }
         }
       }
+      manga {
+        count
+        meanScore
+        standardDeviation
+        minutesWatched
+        episodesWatched
+        chaptersRead
+        volumesRead
+        formats {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          format
+        }
+        statuses {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          status
+        }
+        scores {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          score
+        }
+        lengths {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          length
+        }
+        releaseYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          releaseYear
+        }
+        startYears {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          startYear
+        }
+        genres {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          genre
+        }
+        tags {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          tag {
+            id
+            name
+            description
+            category
+            rank
+            isGeneralSpoiler
+            isMediaSpoiler
+            isAdult
+          }
+        }
+        countries {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          country
+        }
+        voiceActors {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          voiceActor {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            languageV2
+            image {
+              large
+              medium
+            }
+            description
+            siteUrl
+          }
+          characterIds
+        }
+        staff {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          staff {
+            id
+            name {
+              first
+              middle
+              last
+              full
+              native
+              userPreferred
+            }
+            languageV2
+            image {
+              large
+              medium
+            }
+            description
+            siteUrl
+          }
+        }
+        studios {
+          count
+          meanScore
+          minutesWatched
+          chaptersRead
+          mediaIds
+          studio {
+            id
+            name
+            isAnimationStudio
+            siteUrl
+            favourites
+          }
+        }
+      }
     }
     unreadNotificationCount
     siteUrl
