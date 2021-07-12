@@ -91,6 +91,7 @@ type MediaListTypeOptions struct {
 	AdvancedScoring               []string `json:"advancedScoring"`
 	AdvancedScoringEnabled        bool     `json:"advancedScoringEnabled"`
 }
+
 // Favourites User's favourite anime, manga, characters, staff & studios
 type Favourites struct {
 	Anime      MediaConnection     `json:"anime"`
