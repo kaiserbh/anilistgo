@@ -101,7 +101,7 @@ type Favourites struct {
 	Studios    StudioConnection    `json:"studios"`
 }
 
-const userQuery = `id
+const userQuery = ` id
     name
     about
     avatar {
@@ -141,6 +141,13 @@ const userQuery = `id
               native
               userPreferred
             }
+            coverImage {
+              extraLarge
+              large
+              medium
+              color
+            }
+            bannerImage
           }
         }
         nodes {
@@ -152,6 +159,13 @@ const userQuery = `id
             native
             userPreferred
           }
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
         }
         pageInfo {
           total
@@ -183,6 +197,13 @@ const userQuery = `id
             native
             userPreferred
           }
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
         }
         pageInfo {
           total
@@ -286,7 +307,6 @@ const userQuery = `id
               month
               day
             }
-            age
           }
         }
         nodes {
